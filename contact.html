@@ -185,5 +185,29 @@
         });
     </script>
 
+<script>
+    document.getElementById('mimForm').addEventListener('submit', function() {
+        // 1. Get the elements
+        var requestType = document.getElementById('requestType').value;
+        var companyName = document.getElementById('companyName').value;
+        var subjectField = document.getElementById('hiddenSubject');
+
+        // 2. Map the codes to clean text
+        var typeMap = {
+            'quote': 'New Machine Quote',
+            'support': 'Technical Support',
+            'parts': 'Spare Parts',
+            'general': 'General Inquiry'
+        };
+
+        // 3. Logic: If no company name is typed, say "Unknown Company"
+        var cleanType = typeMap[requestType] || 'New Inquiry';
+        var cleanCompany = companyName ? companyName : 'Unknown Company';
+
+        // 4. Create the final subject line: "New Machine Quote <Tata Steel>"
+        subjectField.value = cleanType + " <" + cleanCompany + ">";
+    });
+</script>
+
 </body>
 </html>
