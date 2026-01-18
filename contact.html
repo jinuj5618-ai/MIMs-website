@@ -39,11 +39,12 @@
         <div class="container contact-split">
             
             <div class="contact-form-box">
-                <form action="https://api.web3forms.com/submit" method="POST">
+                <form action="https://api.web3forms.com/submit" method="POST" id="mimForm">
                     
                     <input type="hidden" name="access_key" value="5cac6bb6-a2e4-4336-a08d-9e772e2d2250">
 
-                    <input type="hidden" name="subject" value="New Website Inquiry - Marine Industrial Machines">
+                    <input type="hidden" name="subject" id="hiddenSubject" value="New Inquiry">
+                    
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                     
                     <div class="form-group">
@@ -63,7 +64,7 @@
 
                     <div class="form-group">
                         <label class="form-label">COMPANY NAME</label>
-                        <input type="text" name="company" class="form-input" placeholder="Your Company Ltd.">
+                        <input type="text" name="company" id="companyName" class="form-input" placeholder="Your Company Ltd.">
                     </div>
 
                     <div class="form-group">
@@ -98,44 +99,33 @@
                 </div>
 
             <div class="contact-info-box">
-                
                 <div class="info-item">
                     <h4>REGISTERED OFFICE</h4>
                     <p>3, V. K. S. Building, Road No.27,<br>Shanti Nagar, Wagle Estate,<br>Thane – 400 604, Maharashtra.</p>
                 </div>
-
                 <div class="info-item">
                     <h4>MAIN FACTORY</h4>
                     <p>Bldg No. 82, Sector II-A,<br>Renaissance Industrial Smart City,<br>Vashere, Bhiwandi - 421 302</p>
                 </div>
-
                 <div class="info-item">
                     <h4>CONTACT</h4>
                     <p><i class="ri-mail-send-fill"></i> marineindustrialmachine@gmail.com</p>
                     <p><i class="ri-phone-fill"></i> +91 98204 63034</p>
                     <p><i class="ri-phone-fill"></i> +91 98214 43647</p>
                 </div>
-
                 <div class="info-item">
                     <h4>HOURS</h4>
                     <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
                 </div>
-
                 <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.643666683838!2d72.9536853149026!3d19.18247698702677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b901614051b7%3A0x693c042e61817929!2sWagle%20Industrial%20Estate%2C%20Thane%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625567890123!5m2!1sen!2sin" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.643666683838!2d72.9536853149026!3d19.18247698702677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b901614051b7%3A0x693c042e61817929!2sWagle%20Industrial%20Estate%2C%20Thane%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1625567890123!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-
         </div>
     </section>
 
     <footer class="site-footer">
         <div class="footer-container">
-        
             <div class="footer-col">
                 <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
                 <p class="footer-desc">
@@ -143,7 +133,6 @@
                     Engineered for durability, designed for efficiency.
                 </p>
             </div>
-
             <div class="footer-col">
                 <h4>QUICK LINKS</h4>
                 <ul class="footer-links">
@@ -153,7 +142,6 @@
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>HEAD OFFICE</h4>
                 <p class="contact-info">
@@ -167,13 +155,35 @@
                     Phone: +91 22 1234 5678
                 </p>
             </div>
-
         </div>
-
         <div class="footer-bottom">
             <p>© 2026 Marine Industrial Machines. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.getElementById('mimForm').addEventListener('submit', function() {
+            // 1. Get the elements
+            var requestType = document.getElementById('requestType').value;
+            var companyName = document.getElementById('companyName').value;
+            var subjectField = document.getElementById('hiddenSubject');
+
+            // 2. Map the codes to clean text
+            var typeMap = {
+                'quote': 'New Machine Quote',
+                'support': 'Technical Support',
+                'parts': 'Spare Parts',
+                'general': 'General Inquiry'
+            };
+
+            // 3. Logic: If no company name is typed, say "Unknown Company"
+            var cleanType = typeMap[requestType] || 'New Inquiry';
+            var cleanCompany = companyName ? companyName : 'Unknown Company';
+
+            // 4. Create the final subject line: "New Machine Quote <Tata Steel>"
+            subjectField.value = cleanType + " <" + cleanCompany + ">";
+        });
+    </script>
 
 </body>
 </html>
