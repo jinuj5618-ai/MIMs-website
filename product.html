@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Marine Industrial Machines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="locked-scroll product-mode">
+
+    <header class="site-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="MIM Logo">
+            </a>
+            <nav class="nav-links">
+                <div class="nav-item dropdown active-page">
+                     <a href="product.html" class="nav-item" style="color:#fff;">Product ▾</a>
+                     <div class="dropdown-content">
+                        <a href="#machine1">Crusher X1</a>
+                        <a href="#machine2">Grader Pro</a>
+                        <a href="#machine3">Washer 500</a>
+                     </div>
+                </div>
+                
+                <a href="company.html" class="nav-item inactive-link">Company</a>
+                <a href="support.html" class="nav-item inactive-link">Support</a>
+            </nav>
+            <a href="contact.html" class="cta-button">Get Quote</a>
+        </div>
+    </header>
+
+    <div class="sticky-product-nav">
+        <div class="container nav-flex-container">
+            <div class="scroll-nav">
+                <a href="#machine1">Crusher X1</a>
+                <a href="#machine2">Grader Pro</a>
+                <a href="#machine3">Washer 500</a>
+                <a href="#machine4">Fillet Master</a>
+                <a href="#machine5">Ice Maker</a>
+            </div>
+            <input type="text" id="searchInput" class="search-box" placeholder="Search Machine...">
+        </div>
+    </div>
+
+    <div class="product-page-wrapper" id="scrollContainer">
+        
+        <section id="machine1" class="product-section">
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="assets/machine-1.png" alt="Crusher">
+                </div>
+                <div class="product-details">
+                    <span class="machine-label">[MACHINE #1]</span>
+                    <h2 class="spec-title">INDUSTRIAL CRUSHER X1</h2>
+                    <ul class="spec-list">
+                        <li>Capacity: 50 Tons/Hour</li>
+                        <li>Material: SS 304 Grade</li>
+                        <li>Power: 15 HP Motor</li>
+                    </ul>
+                    <a href="contact.html" class="cta-button-small">Get Quote</a>
+                    <a href="#" class="download-link">Download Brochure ↓</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="machine2" class="product-section">
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="assets/machine-2.png" alt="Grader">
+                </div>
+                <div class="product-details">
+                    <span class="machine-label">[MACHINE #2]</span>
+                    <h2 class="spec-title">GRADER PRO 2000</h2>
+                    <ul class="spec-list">
+                        <li>Multi-Size Grading</li>
+                        <li>Silent Operation</li>
+                    </ul>
+                    <a href="contact.html" class="cta-button-small">Get Quote</a>
+                    <a href="#" class="download-link">Download Brochure ↓</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="machine3" class="product-section">
+            <div class="product-card">
+                <div class="product-image-box">
+                    <img src="assets/machine-3.png" alt="Washer">
+                </div>
+                <div class="product-details">
+                    <span class="machine-label">[MACHINE #3]</span>
+                    <h2 class="spec-title">WASHER 500</h2>
+                    <ul class="spec-list">
+                        <li>High Pressure Jets</li>
+                        <li>Conveyor Speed Control</li>
+                    </ul>
+                    <a href="contact.html" class="cta-button-small">Get Quote</a>
+                    <a href="#" class="download-link">Download Brochure ↓</a>
+                </div>
+            </div>
+        </section>
+        
+        </div>
+
+    <footer class="site-footer">
+		<div class="footer-container">
+        
+			<div class="footer-col">
+				<h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+				<p class="footer-desc">
+					Pioneering the future of food processing technology since 1991. 
+					Engineered for durability, designed for efficiency.
+				</p>
+			</div>
+
+			<div class="footer-col">
+				<h4>QUICK LINKS</h4>
+				<ul class="footer-links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="product.html">Our Machines</a></li>
+					<li><a href="company.html">Company Profile</a></li>
+					<li><a href="contact.html">Contact Us</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-col">
+				<h4>HEAD OFFICE</h4>
+				<p class="contact-info">
+					<strong>Mumbai (Regd. Office)</strong><br>
+					3, V. K. S. Building, Road No.27,<br>
+					Shanti Nagar, Wagle Estate,<br>
+					Thane – 400 604
+				</p>
+				<p class="contact-info">
+					Email: info@marineindustrial.com<br>
+					Phone: +91 22 1234 5678
+				</p>
+			</div>
+
+		</div>
+
+		<div class="footer-bottom">
+			<p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
+		</div>
+	</footer>
+
+    <script>
+        // 1. Horizontal Scroll Logic
+        const wrapper = document.getElementById("scrollContainer");
+        wrapper.addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            wrapper.scrollBy({ left: evt.deltaY * 3, behavior: 'auto' });
+        }, { passive: false });
+
+        // 2. Search Logic
+        const searchInput = document.getElementById('searchInput');
+        const sections = document.querySelectorAll('.product-section');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            sections.forEach(section => {
+                const title = section.querySelector('.spec-title').textContent.toLowerCase();
+                const label = section.querySelector('.machine-label').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || label.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
