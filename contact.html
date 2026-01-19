@@ -3,115 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | MIM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <title>Get a Quote | MIM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="focus-mode">
+    
+    <link rel="stylesheet" href="style.css"> 
 
-    <header class="site-header">
-        <div class="header-content">
-            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
-            <nav class="nav-links">
-                <a href="product.html" class="nav-item">Product</a>
-                <a href="company.html" class="nav-item">Company</a>
-                <a href="contact.html" class="nav-item">Contact</a>
+    <style>
+        /* --- NEW CARD DESIGN STYLES --- */
+        body {
+            background-color: #f3f4f6; /* Light gray background like the image */
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .contact-card {
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; /* Ensures the blue side corners stay rounded */
+        }
+
+        /* LEFT SIDE: FORM */
+        .form-side {
+            flex: 1.4; /* Takes up 60% of width */
+            padding: 60px;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9ca3af;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Barlow', sans-serif;
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #365b6d;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(54, 91, 109, 0.1);
+        }
+
+        .submit-btn {
+            background-color: #2b4b60; /* Dark Teal Button */
+            color: white;
+            width: 100%;
+            padding: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover { background-color: #1e3a4e; }
+
+        /* RIGHT SIDE: INFO (Dark Blue) */
+        .info-side {
+            flex: 1; /* Takes up 40% of width */
+            background-color: #2b4b60; /* The Dark Blue from Image */
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-block h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 10px;
+        }
+
+        .info-block p, .info-block a {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: white;
+            margin: 0;
+            text-decoration: none;
+        }
+
+        .info-icon { margin-right: 10px; opacity: 0.7; }
+
+        /* MAP STYLING */
+        .mini-map {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 900px) {
+            .contact-card { flex-direction: column; }
+            .form-side { padding: 30px; }
+            .info-side { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header" style="background: #2b4b60; padding: 15px 0;">
+        <div class="header-content" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM" style="height: 40px; filter: brightness(0) invert(1);"></a>
+            <nav>
+                <a href="index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem;">&larr; Back Home</a>
             </nav>
         </div>
     </header>
 
-    <section class="contact-section" style="padding-top: 40px;">
-        <div class="container contact-split">
+    <div class="page-container">
+        <div class="contact-card">
             
-            <div class="contact-form-box">
+            <div class="form-side">
                 <form id="mimForm">
                     <input type="hidden" name="access_key" value="5cac6bb6-a2e4-4336-a08d-9e772e2d2250">
                     <input type="hidden" name="redirect" value="https://mims-website.vercel.app/success.html">
-                    <input type="hidden" name="subject" id="hiddenSubject" value="New Inquiry">
+                    <input type="hidden" name="subject" id="hiddenSubject" value="New Quote Request">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                    <div class="form-group">
-                        <label class="form-label">I AM LOOKING FOR:</label>
+                    <div>
+                        <label class="form-label">I am looking for:</label>
                         <select class="form-select" id="requestType" name="request_type">
-                            <option value="Quote">New Machine Quote</option>
-                            <option value="Support">Technical Support</option>
-                            <option value="Parts">Spare Parts</option>
-                            <option value="General">General Inquiry</option>
+                            <option value="New Machine Quote (Sales)">New Machine Quote (Sales)</option>
+                            <option value="Service & Maintenance">Service & Maintenance</option>
+                            <option value="Spare Parts">Spare Parts</option>
+                            <option value="General Inquiry">General Inquiry</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">FULL NAME</label>
-                        <input type="text" name="name" id="userName" class="form-input" required placeholder="John Doe">
+                    <div>
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="userName" name="name" class="form-input" placeholder="John Doe" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">COMPANY NAME</label>
-                        <input type="text" name="company" id="companyName" class="form-input" placeholder="Your Company Ltd.">
+                    <div>
+                        <label class="form-label">Company Name</label>
+                        <input type="text" id="companyName" name="company" class="form-input" placeholder="Your Company Ltd.">
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">EMAIL ADDRESS</label>
-                        <input type="email" name="email" id="userEmail" class="form-input" required placeholder="name@company.com">
+                    <div>
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="userEmail" name="email" class="form-input" placeholder="name@company.com" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">PHONE NUMBER</label>
-                        <input type="text" name="phone" id="userPhone" class="form-input" required placeholder="+91 98765 43210">
+                    <div>
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" id="userPhone" name="phone" class="form-input" placeholder="+91 98765 43210" required>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">MESSAGE</label>
-                        <textarea name="message" id="userMessage" class="form-textarea" rows="4" required placeholder="Details..."></textarea>
+                    <div>
+                        <label class="form-label">Related Machine (Optional)</label>
+                        <select class="form-select" id="relatedMachine" name="related_machine">
+                            <option value="">-- Select Machine --</option>
+                            <option value="Industrial Shredder">Industrial Shredder</option>
+                            <option value="Baling Machine">Baling Machine</option>
+                            <option value="Conveyor System">Conveyor System</option>
+                            <option value="Custom Project">Custom Project</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Message</label>
+                        <textarea id="userMessage" name="message" class="form-textarea" rows="4" placeholder="Tell us about your requirements or issue..."></textarea>
                     </div>
 
                     <button type="submit" id="submitBtn" class="submit-btn">SEND REQUEST</button>
                 </form>
             </div>
 
-            <div class="contact-info-box">
+            <div class="info-side">
                 
-                <div class="info-item" style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                    <h4 style="color: var(--primary-color);">QUICK CONTACT</h4>
-                    <p><i class="ri-mail-send-line"></i> marineindustrialmachine@gmail.com</p>
-                    <p><i class="ri-phone-line"></i> +91 98204 63034</p>
-                    <p><i class="ri-phone-line"></i> +91 98214 43647</p>
-                </div>
-
-                <div class="info-item" style="margin-bottom: 30px;">
+                <div class="info-block">
                     <h4>REGISTERED OFFICE</h4>
-                    <p>3, V. K. S. Building, Road No.27,<br>Shanti Nagar, Wagle Estate,<br>Thane– 400 604, Maharashtra, India</p>
-                    
-                    <div class="map-container" style="margin-top: 15px; border-radius: 8px; overflow: hidden;">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.5041294992761!2d72.94387576097814!3d19.192316306243498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b9a852598e05%3A0xe2c2a994848427a5!2sVKS%20Building%2C%20Sector-6%2C%20Shanti%20Nagar%2C%20Shree%20Nagar%2C%20Thane%20West%2C%20Thane%2C%20Maharashtra%20400604!5e0!3m2!1sen!2sin!4v1768826255615!5m2!1sen!2sin" 
-                            width="100%" height="250" style="border:0;" 
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                    <p>3, V. K. S. Building, Road No.27,<br>Shanti Nagar, Wagle Estate,<br>Thane– 400 604, Maharashtra.</p>
+                    <div class="mini-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.0!2d73.0!3d19.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA0JzE1LjYiTiA3M8KwMDInMzYuOSJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
 
-                <div class="info-item">
-                    <h4>FACTORY ADDRESS</h4>
-                    <p>Building No. 82, Sector II a,<br>Renaissance Industrial Smart City,<br>Near HP Petrol Pump, Padgha-Kalyan State Highway,<br>Vashere, Bhiwandi - 421 302</p>
-                    
-                    <div class="map-container" style="margin-top: 15px; border-radius: 8px; overflow: hidden;">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.904982479857!2d73.16909767609555!3d19.329928981927562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7979bb6f0bb67%3A0x413701ae9dc166da!2sMarine%20Industrial%20Machines!5e0!3m2!1sen!2sin!4v1768826331138!5m2!1sen!2sin" 
-                            width="100%" height="250" style="border:0;" 
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                <div class="info-block">
+                    <h4>MAIN FACTORY</h4>
+                    <p>Bldg No. 82, Sector II-A,<br>Renaissance Industrial Smart City,<br>Vashere, Bhiwandi - 421 302</p>
+                    <div class="mini-map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.904982479857!2d73.16909767609555!3d19.329928981927562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7979bb6f0bb67%3A0x413701ae9dc166da!2sMarine%20Industrial%20Machines!5e0!3m2!1sen!2sin!4v1768836728618!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
+                </div>
+
+                <div class="info-block">
+                    <h4>CONTACT</h4>
+                    <p><i class="ri-mail-line info-icon"></i> marineindustrialmachine@gmail.com</p>
+                    <p><i class="ri-phone-line info-icon"></i> +91 98204 63034</p>
+                    <p><i class="ri-phone-line info-icon"></i> +91 98214 43647</p>
+                </div>
+
+                <div class="info-block">
+                    <h4>HOURS</h4>
+                    <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
                 </div>
 
             </div>
         </div>
-    </section>
-
-    <footer class="site-footer">
-        <div class="footer-bottom"><p>© 2026 Marine Industrial Machines.</p></div>
-    </footer>
+    </div>
 
     <script type="module">
         import { db } from './firebase-config.js';
@@ -123,48 +242,57 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
             
-            // 1. Show "Sending..." animation
+            // 1. Show Loading State
             const originalText = submitBtn.innerText;
             submitBtn.innerText = "SENDING...";
             submitBtn.style.opacity = "0.7";
             submitBtn.disabled = true;
 
-            // 2. Custom Subject Logic
+            // 2. Prepare Data
             const type = document.getElementById('requestType').value;
-            const company = document.getElementById('companyName').value;
-            const companyText = company ? company : "Unknown Company";
-            const newSubject = type + " <" + companyText + ">";
-            document.getElementById('hiddenSubject').value = newSubject;
+            const company = document.getElementById('companyName').value || "Unknown Company";
+            
+            // Update Hidden Subject for Email
+            document.getElementById('hiddenSubject').value = type + " <" + company + ">";
 
-            // 3. Gather Data for Dashboard
             const dashboardData = {
+                serviceType: type,
                 name: document.getElementById('userName').value,
-                company: companyText,
+                company: company,
                 email: document.getElementById('userEmail').value,
                 phone: document.getElementById('userPhone').value,
-                serviceType: type,
+                relatedMachine: document.getElementById('relatedMachine').value || "None",
                 message: document.getElementById('userMessage').value,
-                timestamp: serverTimestamp() 
+                timestamp: serverTimestamp()
             };
 
             try {
-                // A. SAVE TO DASHBOARD
+                // A. Save to Firebase (This is where it usually gets stuck if rules are wrong)
                 await addDoc(collection(db, "inquiries"), dashboardData);
-                console.log("Saved to Dashboard!");
+                console.log("✅ Saved to Dashboard");
 
-                // B. SEND EMAIL
+                // B. Send Email (Web3Forms)
                 const formData = new FormData(form);
                 await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
                     body: formData
                 });
+                console.log("✅ Email Sent");
 
-                // C. SUCCESS! Redirect
+                // C. Success Redirect
                 window.location.href = "success.html";
 
             } catch (error) {
-                console.error("Error:", error);
-                alert("Connection Error. Please check your internet.");
+                console.error("❌ Submission Error:", error);
+                
+                // DETAILED ERROR ALERT FOR YOU
+                if (error.code === 'permission-denied') {
+                    alert("⚠️ SYSTEM ERROR: Database Permission Denied.\n\nGo to Firebase Console > Firestore > Rules and change 'allow write: if false' to 'allow write: if true'.");
+                } else {
+                    alert("Error submitting form: " + error.message + "\n\nCheck the Console (F12) for details.");
+                }
+
+                // Reset button so user can try again
                 submitBtn.innerText = originalText;
                 submitBtn.style.opacity = "1";
                 submitBtn.disabled = false;
