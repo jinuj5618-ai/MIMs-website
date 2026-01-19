@@ -133,27 +133,33 @@
 
     <div class="container">
 
-        <div id="quotes" class="dashboard-section active">
-            <div class="section-header">
-                <h2 class="section-title">Quote Requests</h2>
-                <div style="color: #64748b;">Managing Incoming Leads</div>
-            </div>
-            <div style="background: white; padding: 40px; text-align: center; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <p>📭 The Quote Table will load here...</p>
-            </div>
-        </div>
+		<div id="quotes" class="dashboard-section active">
+					<div class="section-header">
+						<h2 class="section-title">Recent Inquiries</h2>
+						<button onclick="loadQuotes()" style="cursor:pointer; background:none; border:1px solid #ccc; padding:5px 10px; border-radius:4px;">🔄 Refresh</button>
+					</div>
 
-        <div id="products" class="dashboard-section">
-            <div class="section-header">
-                <h2 class="section-title">Machine Management</h2>
-                <button style="background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">+ Add New Machine</button>
-            </div>
-            <div style="background: white; padding: 40px; text-align: center; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <p>🏗️ The Product Manager will load here...</p>
-            </div>
-        </div>
-
-    </div>
+					<div style="overflow-x: auto; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+						<table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+							<thead style="background: #f1f5f9; color: var(--admin-nav);">
+								<tr>
+									<th style="padding: 15px; text-align: left;">Date</th>
+									<th style="padding: 15px; text-align: left;">Name</th>
+									<th style="padding: 15px; text-align: left;">Service Type</th>
+									<th style="padding: 15px; text-align: left;">Status</th>
+									<th style="padding: 15px; text-align: right;">Actions</th>
+								</tr>
+							</thead>
+							<tbody id="quotes-table-body">
+								</tbody>
+						</table>
+						
+						<div id="no-quotes-msg" style="display:none; padding: 40px; text-align: center; color: #64748b;">
+							<h3>No inquiries yet.</h3>
+							<p>When customers fill the form, they will appear here.</p>
+						</div>
+					</div>
+				</div>
 
     <script type="module">
         import { auth } from './firebase-config.js';
