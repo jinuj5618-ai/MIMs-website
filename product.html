@@ -7,36 +7,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- 1. SEARCH BAR (Clean & Centered) --- */
+        /* --- 1. SEARCH BAR (Professional) --- */
         .search-container {
             max-width: 600px;
-            margin: 120px auto 30px auto; /* Spacing from top header */
+            margin: 120px auto 30px auto;
             position: relative;
             padding: 0 20px;
             z-index: 5;
         }
 
+        .search-icon {
+            position: absolute;
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
         .search-box {
             width: 100%;
-            padding: 18px 25px;
-            font-size: 1.1rem;
-            border: none;
+            padding: 18px 20px 18px 50px; /* Space for icon */
+            font-size: 1rem;
+            border: 1px solid #e2e8f0;
             border-radius: 50px;
             background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             font-family: 'Barlow', sans-serif;
             transition: 0.3s;
         }
 
         .search-box:focus {
             outline: none;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            transform: scale(1.02);
+            border-color: #0f1c2e;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
-        /* --- 2. VISUAL MEGA MENU (The Dropdown Alternative) --- */
+        /* --- 2. TEXT-ONLY MEGA MENU --- */
         .nav-item.dropdown { position: relative; }
         
         .mega-menu {
@@ -44,70 +55,56 @@
             top: 100%;
             left: 50%;
             transform: translateX(-50%) translateY(10px);
-            width: 600px; /* Wide panel */
+            width: 250px; /* Slimmer for list */
             background: white;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 15px 0;
+            border-radius: 8px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             opacity: 0;
             visibility: hidden;
-            transition: 0.3s ease;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columns */
-            gap: 15px;
+            transition: 0.2s ease;
             z-index: 1000;
+            border-top: 3px solid #d97706; /* Gold Top Border */
         }
 
-        /* Hover Effect to Show Menu */
         .nav-item.dropdown:hover .mega-menu {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Items inside Mega Menu */
-        .menu-card {
+        .menu-item {
+            display: block;
+            padding: 12px 20px;
+            color: #1e293b;
             text-decoration: none;
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f5f9;
             transition: 0.2s;
-            border: 1px solid transparent;
-            display: block;
-        }
-        .menu-card:hover {
-            background: white;
-            border-color: #e2e8f0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .menu-img {
-            width: 100%;
-            height: 80px;
-            object-fit: contain; /* Keeps image looking good */
-            margin-bottom: 8px;
-        }
-        .menu-title {
-            display: block;
-            color: #0f1c2e;
-            font-size: 0.85rem;
-            font-weight: 600;
         }
 
-        /* Badge Style */
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
+
+        /* --- 3. PREMIUM BADGE --- */
+        .product-card {
+            position: relative; /* CRITICAL: Keeps badge inside */
+        }
+
         .best-seller-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #f59e0b;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 4px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* Ensure header stays on top */
@@ -118,27 +115,24 @@
 
     <header class="site-header">
         <div class="header-content">
-            <a href="index.html" class="logo">
-                <img src="assets/logo.png" alt="MIM Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
             <nav class="nav-links">
                 <div class="nav-item dropdown active-page">
                      <a href="product.html" class="nav-item" style="color:#fff;">Product ▾</a>
-                     
                      <div class="mega-menu" id="megaMenuContainer">
-                        <span style="grid-column: span 3; text-align:center; color:#999; font-size:0.9rem;">Loading...</span>
+                        <div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
                      </div>
                 </div>
                 
                 <a href="company.html" class="nav-item inactive-link">Company</a>
-                <a href="contact.html" class="nav-item inactive-link">Contact</a>
-            </nav>
+                <a href="support.html" class="nav-item inactive-link">Support</a> </nav>
             <a href="contact.html" class="cta-button">Get Quote</a>
         </div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search machine name...">
+        <i class="ri-search-line search-icon"></i>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search machine name...">
     </div>
 
     <div class="product-page-wrapper" id="scrollContainer">
@@ -149,10 +143,7 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
-                <p class="footer-desc">
-                    Pioneering the future of food processing technology since 1991. 
-                    Engineered for durability, designed for efficiency.
-                </p>
+                <p class="footer-desc">Pioneering the future of food processing technology since 1991.</p>
             </div>
             <div class="footer-col">
                 <h4>QUICK LINKS</h4>
@@ -167,15 +158,11 @@
                 <h4>HEAD OFFICE</h4>
                 <p class="contact-info">
                     <strong>Mumbai (Regd. Office)</strong><br>
-                    3, V. K. S. Building, Road No.27,<br>
-                    Shanti Nagar, Wagle Estate,<br>
-                    Thane – 400 604
+                    3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604
                 </p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
-        </div>
+        <div class="footer-bottom"><p>© 2026 Marine Industrial Machines. All Rights Reserved.</p></div>
     </footer>
 
     <script type="module">
@@ -186,21 +173,18 @@
         const searchInput = document.getElementById('searchInput');
         const megaMenu = document.getElementById('megaMenuContainer');
 
-        // 1. HORIZONTAL SCROLL LOGIC
         container.addEventListener("wheel", (evt) => {
             evt.preventDefault();
             container.scrollBy({ left: evt.deltaY * 3, behavior: 'auto' });
         }, { passive: false });
 
-        // 2. LOAD DATA
         async function loadProducts() {
             try {
-                // Fetch products (Newest first)
                 const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
                 const snap = await getDocs(q);
                 
                 container.innerHTML = ''; 
-                megaMenu.innerHTML = ''; // Clear default
+                megaMenu.innerHTML = ''; 
 
                 if (snap.empty) {
                     container.innerHTML = '<div style="padding:100px; color:white; text-align:center;">No machines found.</div>';
@@ -212,10 +196,10 @@
                 snap.forEach(doc => {
                     const p = doc.data();
                     const machineId = `machine${index}`;
-                    const imgUrl = p.imageUrl || 'assets/machine-1.png'; // Fallback
+                    const imgUrl = p.imageUrl || 'assets/machine-1.png';
 
-                    // --- A. BUILD MAIN PAGE CARD ---
-                    const badgeHTML = p.bestSeller ? `<div class="best-seller-badge">★ BEST SELLER</div>` : '';
+                    // A. MAIN PAGE CARD
+                    const badgeHTML = p.bestSeller ? `<div class="best-seller-badge">★ Best Seller</div>` : '';
                     
                     const html = `
                     <section id="${machineId}" class="product-section">
@@ -227,9 +211,7 @@
                             <div class="product-details">
                                 <span class="machine-label">[MACHINE #${index}]</span>
                                 <h2 class="spec-title">${p.name.toUpperCase()}</h2>
-                                <ul class="spec-list">
-                                    <li>${p.description}</li>
-                                </ul>
+                                <ul class="spec-list"><li>${p.description}</li></ul>
                                 <a href="contact.html" class="cta-button-small">Get Quote</a>
                                 <a href="#" class="download-link">Download Brochure ↓</a>
                             </div>
@@ -238,49 +220,29 @@
                     `;
                     container.innerHTML += html;
 
-                    // --- B. BUILD MEGA MENU (Limit to top 6 to fit nicely) ---
-                    if (index <= 6) {
-                        const menuHtml = `
-                        <a href="#${machineId}" class="menu-card">
-                            <img src="${imgUrl}" class="menu-img" onerror="this.src='https://placehold.co/100x80?text=IMG'">
-                            <span class="menu-title">${p.name}</span>
-                        </a>
-                        `;
-                        megaMenu.innerHTML += menuHtml;
+                    // B. MEGA MENU (List Item)
+                    if (index <= 8) {
+                        megaMenu.innerHTML += `<a href="#${machineId}" class="menu-item">${p.name}</a>`;
                     }
-
                     index++;
                 });
 
-                // Add a "View All" link in menu if there are many products
-                megaMenu.innerHTML += `
-                    <a href="#" class="menu-card" style="display:flex; align-items:center; justify-content:center; background:#0f1c2e; color:white;">
-                        <span class="menu-title" style="color:white;">View Full<br>Catalog →</span>
-                    </a>
-                `;
+                megaMenu.innerHTML += `<a href="#" class="menu-item" style="font-weight:700; color:#d97706;">View Full Catalog →</a>`;
 
-            } catch (error) {
-                console.error("Error loading products:", error);
-            }
+            } catch (error) { console.error("Error:", error); }
         }
 
         loadProducts();
 
-        // 3. SEARCH LOGIC
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const sections = document.querySelectorAll('.product-section'); 
-            
             sections.forEach(section => {
                 const title = section.querySelector('.spec-title').textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
+                if (title.includes(searchTerm)) section.style.display = 'block';
+                else section.style.display = 'none';
             });
         });
     </script>
-
 </body>
 </html>
