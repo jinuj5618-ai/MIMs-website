@@ -131,12 +131,13 @@
             <div class="modal-header"><h3 class="modal-title" id="productModalTitle">Add Machine</h3><button class="close-modal" onclick="closeModal('productModal')">&times;</button></div>
             
             <form id="productForm">
-                <input type="hidden" id="prodId"> <input type="hidden" id="existingImageUrl"> <label class="modal-label">Machine Name</label>
+                <input type="hidden" id="prodId">
+                <label class="modal-label">Machine Name</label>
                 <input type="text" id="prodName" class="modal-input" placeholder="e.g. Industrial Shredder X1" required>
 
-                <label class="modal-label">Machine Image</label>
-                <input type="file" id="prodImageFile" class="modal-input" accept="image/*">
-                <p id="currentImageText" style="font-size:0.8rem; color:#64748b; margin-top:-10px; display:none;">Currently: <a href="#" target="_blank" id="currentImageLink">View Image</a></p>
+                <label class="modal-label">Image Path</label>
+                <input type="text" id="prodImage" class="modal-input" placeholder="e.g. assets/shredder.jpg">
+                <p style="font-size:0.8rem; color:#64748b; margin-top:-10px; margin-bottom:15px;">Enter the file path (e.g. <b>assets/my-photo.jpg</b>) or a web link.</p>
 
                 <label class="modal-label">Description / Key Features</label>
                 <textarea id="prodDesc" class="modal-input" rows="4" placeholder="Heavy duty motor, 5-ton capacity..." required></textarea>
@@ -147,11 +148,11 @@
     </div>
 
     <script type="module">
-        import { db, auth, storage } from './firebase-config.js'; // Added 'storage' import
+        // UPDATED: Removed 'storage' import to prevent billing errors
+        import { db, auth } from './firebase-config.js'; 
         import { collection, getDocs, orderBy, query, deleteDoc, doc, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"; // Added Storage tools
-
+        
         // --- AUTH ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -214,9 +215,8 @@
             if(confirm("Delete this inquiry?")) { await deleteDoc(doc(db, "inquiries", id)); loadQuotes(); }
         }
 
-        // --- PRODUCTS LOGIC (Updated with Image Upload) ---
+        // --- PRODUCTS LOGIC (LOCAL ASSETS) ---
         
-        // 1. Load Products
         window.loadProducts = async function() {
             const tbody = document.getElementById('products-table-body');
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Loading...</td></tr>';
@@ -232,8 +232,8 @@
                         const p = docSnap.data();
                         const safeP = JSON.stringify({id: docSnap.id, ...p}).replace(/"/g, '&quot;');
                         
-                        // Use a placeholder if no image
-                        const imgDisplay = p.imageUrl ? `<img src="${p.imageUrl}" class="machine-thumb">` : `<div class="machine-thumb"></div>`;
+                        // Handle Image Path (Simple link)
+                        const imgDisplay = p.imageUrl ? `<img src="${p.imageUrl}" class="machine-thumb" onerror="this.src='https://placehold.co/50x50?text=No+Img'">` : `<div class="machine-thumb"></div>`;
 
                         tbody.innerHTML += `
                             <tr>
@@ -250,90 +250,51 @@
             } catch (e) { console.error(e); }
         }
 
-        // 2. Open Modal for Add
         window.openProductModal = function() {
             document.getElementById('productForm').reset();
             document.getElementById('prodId').value = '';
-            document.getElementById('existingImageUrl').value = '';
-            document.getElementById('currentImageText').style.display = 'none';
             document.getElementById('productModalTitle').innerText = "Add New Machine";
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        // 3. Open Modal for Edit
         window.editProduct = function(data) {
             document.getElementById('prodId').value = data.id;
             document.getElementById('prodName').value = data.name;
             document.getElementById('prodDesc').value = data.description || '';
-            document.getElementById('existingImageUrl').value = data.imageUrl || '';
-            
-            // Show link to current image if exists
-            if(data.imageUrl) {
-                document.getElementById('currentImageLink').href = data.imageUrl;
-                document.getElementById('currentImageText').style.display = 'block';
-            } else {
-                document.getElementById('currentImageText').style.display = 'none';
-            }
+            document.getElementById('prodImage').value = data.imageUrl || ''; // Load text path
             
             document.getElementById('productModalTitle').innerText = "Edit Machine";
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        // 4. Save Product (Upload Image -> Then Save Data)
+        // UPDATED: Save Product Logic (Direct Text Save, No Upload)
         document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const btn = document.getElementById('saveProductBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "UPLOADING & SAVING...";
+            btn.innerText = "SAVING...";
             btn.disabled = true;
 
             const id = document.getElementById('prodId').value;
-            const fileInput = document.getElementById('prodImageFile');
-            const file = fileInput.files[0];
-            
-            // Start with existing URL (if editing)
-            let finalImageUrl = document.getElementById('existingImageUrl').value;
+            const data = {
+                name: document.getElementById('prodName').value,
+                imageUrl: document.getElementById('prodImage').value, // Save the path text directly
+                description: document.getElementById('prodDesc').value,
+                updatedAt: serverTimestamp()
+            };
 
             try {
-                // A. If user selected a new file, Upload it first
-                if (file) {
-                    // Create a unique name for the file
-                    const uniqueName = Date.now() + '-' + file.name;
-                    const storageRef = ref(storage, 'machines/' + uniqueName);
-                    
-                    // Upload
-                    await uploadBytes(storageRef, file);
-                    
-                    // Get the URL
-                    finalImageUrl = await getDownloadURL(storageRef);
-                }
-
-                // B. Prepare Data Object (No Category)
-                const data = {
-                    name: document.getElementById('prodName').value,
-                    imageUrl: finalImageUrl,
-                    description: document.getElementById('prodDesc').value,
-                    updatedAt: serverTimestamp()
-                };
-
-                // C. Save to Database
                 if (id) {
                     await updateDoc(doc(db, "products", id), data);
                 } else {
                     await addDoc(collection(db, "products"), data);
                 }
-
-                // D. Cleanup
                 closeModal('productModal');
                 loadProducts();
-                btn.innerText = originalText;
+                btn.innerText = "SAVE MACHINE";
                 btn.disabled = false;
-
             } catch (e) { 
                 alert("Error saving: " + e.message); 
-                console.error(e);
-                btn.innerText = originalText;
+                btn.innerText = "SAVE MACHINE";
                 btn.disabled = false;
             }
         });
