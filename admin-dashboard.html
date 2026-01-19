@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,58 +15,301 @@
             --text-dark: #1e293b;
         }
 
-        body { margin: 0; font-family: 'Barlow', sans-serif; background-color: var(--admin-bg); color: var(--text-dark); }
+        body {
+            margin: 0;
+            font-family: 'Barlow', sans-serif;
+            background-color: var(--admin-bg);
+            color: var(--text-dark);
+        }
 
         /* NAV & LAYOUT */
-        .admin-nav { background-color: var(--admin-nav); color: white; padding: 0 30px; height: 70px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .nav-brand { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-btn { background: transparent; border: none; color: rgba(255,255,255,0.7); font-weight: 600; font-size: 1rem; cursor: pointer; padding: 10px 15px; border-radius: 6px; transition: 0.3s; }
-        .nav-btn:hover, .nav-btn.active { color: white; background: rgba(255,255,255,0.1); }
-        .logout-btn { background-color: #dc2626; color: white; padding: 8px 20px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; }
+        .admin-nav {
+            background-color: var(--admin-nav);
+            color: white;
+            padding: 0 30px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .dashboard-section { display: none; animation: fadeIn 0.4s ease-out; }
-        .dashboard-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; }
-        .section-title { font-size: 1.8rem; font-weight: 700; color: var(--admin-nav); margin: 0; }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn {
+            background-color: #dc2626;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--admin-nav);
+            margin: 0;
+        }
 
         /* TABLES */
-        .table-container { background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
-        th { background: #f1f5f9; color: var(--admin-nav); padding: 15px; text-align: left; font-weight: 700; }
-        td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
-        .status-badge { background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
-        
-        .action-btn { cursor: pointer; padding: 6px 12px; border-radius: 4px; border: none; font-weight: 600; margin-right: 5px; }
-        .btn-view { background: #eff6ff; color: #1e40af; }
-        .btn-edit { background: #fff7ed; color: #c2410c; }
-        .btn-del { background: #fef2f2; color: #991b1b; }
-        
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: var(--admin-nav);
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn-view {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        .btn-edit {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .btn-del {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
         /* MACHINE THUMBNAIL */
-        .machine-thumb { width: 50px; height: 50px; border-radius: 4px; object-fit: cover; border: 1px solid #eee; vertical-align: middle; margin-right: 10px; background: #f4f4f4; }
+        .machine-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid #eee;
+            vertical-align: middle;
+            margin-right: 10px;
+            background: #f4f4f4;
+        }
 
         /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
-        .modal-box { background: white; width: 90%; max-width: 600px; border-radius: 12px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: slideUp 0.3s ease-out; max-height: 90vh; overflow-y: auto; }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .modal-header { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; }
-        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
         /* FORM INPUTS */
-        .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
-        .modal-label { font-weight: 600; font-size: 0.9rem; color: #64748b; margin-bottom: 5px; display: block; }
-        .save-btn { width: 100%; background: var(--accent); color: white; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .save-btn:hover { opacity: 0.9; }
-        .save-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .modal-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .save-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .save-btn:hover {
+            opacity: 0.9;
+        }
+
+        .save-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
 
         /* LOADING */
-        #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 999; display: flex; justify-content: center; align-items: center; color: var(--admin-nav); font-size: 1.2rem; font-weight: bold; }
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--admin-nav);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="loading-screen">Verifying Access...</div>
@@ -84,29 +328,45 @@
         <div id="quotes" class="dashboard-section active">
             <div class="section-header">
                 <h2 class="section-title">Inquiries</h2>
-                <button onclick="loadQuotes()" style="cursor:pointer; background:white; border:1px solid #cbd5e1; padding:8px 15px; border-radius:4px;">🔄 Refresh</button>
+                <button onclick="loadQuotes()"
+                    style="cursor:pointer; background:white; border:1px solid #cbd5e1; padding:8px 15px; border-radius:4px;">🔄
+                    Refresh</button>
             </div>
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr><th>Date</th><th>Name / Company</th><th>Request</th><th>Status</th><th style="text-align: right;">Actions</th></tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name / Company</th>
+                            <th>Request</th>
+                            <th>Status</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
                     </thead>
                     <tbody id="quotes-table-body"></tbody>
                 </table>
-                <div id="no-quotes-msg" style="display:none; padding:40px; text-align:center; color:#64748b;">No inquiries yet.</div>
+                <div id="no-quotes-msg" style="display:none; padding:40px; text-align:center; color:#64748b;">No
+                    inquiries yet.</div>
             </div>
         </div>
 
         <div id="products" class="dashboard-section">
             <div class="section-header">
                 <h2 class="section-title">Machine Catalog</h2>
-                <button onclick="openProductModal()" style="background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">+ Add New Machine</button>
+                <button onclick="openProductModal()"
+                    style="background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">+
+                    Add New Machine</button>
             </div>
-            
+
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr><th>Image</th><th>Name</th><th>Specs Summary</th><th style="text-align: right;">Actions</th></tr>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Best Seller?</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
                     </thead>
                     <tbody id="products-table-body"></tbody>
                 </table>
@@ -121,15 +381,21 @@
 
     <div id="viewModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-header"><h3 class="modal-title">Inquiry Details</h3><button class="close-modal" onclick="closeModal('viewModal')">&times;</button></div>
+            <div class="modal-header">
+                <h3 class="modal-title">Inquiry Details</h3><button class="close-modal"
+                    onclick="closeModal('viewModal')">&times;</button>
+            </div>
             <div id="modalContent"></div>
         </div>
     </div>
 
     <div id="productModal" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-header"><h3 class="modal-title" id="productModalTitle">Add Machine</h3><button class="close-modal" onclick="closeModal('productModal')">&times;</button></div>
-            
+            <div class="modal-header">
+                <h3 class="modal-title" id="productModalTitle">Add Machine</h3><button class="close-modal"
+                    onclick="closeModal('productModal')">&times;</button>
+            </div>
+
             <form id="productForm">
                 <input type="hidden" id="prodId">
                 <label class="modal-label">Machine Name</label>
@@ -137,10 +403,19 @@
 
                 <label class="modal-label">Image Path</label>
                 <input type="text" id="prodImage" class="modal-input" placeholder="e.g. assets/shredder.jpg">
-                <p style="font-size:0.8rem; color:#64748b; margin-top:-10px; margin-bottom:15px;">Enter the file path (e.g. <b>assets/my-photo.jpg</b>) or a web link.</p>
+                <p style="font-size:0.8rem; color:#64748b; margin-top:-10px; margin-bottom:15px;">Enter the file path
+                    (e.g. <b>assets/my-photo.jpg</b>) or a web link.</p>
 
                 <label class="modal-label">Description / Key Features</label>
-                <textarea id="prodDesc" class="modal-input" rows="4" placeholder="Heavy duty motor, 5-ton capacity..." required></textarea>
+                <textarea id="prodDesc" class="modal-input" rows="4" placeholder="Heavy duty motor, 5-ton capacity..."
+                    required></textarea>
+
+                <div
+                    style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px; background: #f1f5f9; padding: 10px; border-radius: 6px;">
+                    <input type="checkbox" id="prodBestSeller" style="width: 20px; height: 20px; cursor: pointer;">
+                    <label for="prodBestSeller" style="font-weight: 600; cursor: pointer; color: #1e293b;">Mark as "Best
+                        Seller"?</label>
+                </div>
 
                 <button type="submit" id="saveProductBtn" class="save-btn">SAVE MACHINE</button>
             </form>
@@ -148,35 +423,34 @@
     </div>
 
     <script type="module">
-        // UPDATED: Removed 'storage' import to prevent billing errors
-        import { db, auth } from './firebase-config.js'; 
+        import { db, auth } from './firebase-config.js';
         import { collection, getDocs, orderBy, query, deleteDoc, doc, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        
+
         // --- AUTH ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('loading-screen').style.display = 'none';
                 loadQuotes();
-                loadProducts(); 
+                loadProducts();
             } else {
                 window.location.href = "admin.html";
             }
         });
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
-            if(confirm("Log out?")) signOut(auth).then(() => window.location.href = "admin.html");
+            if (confirm("Log out?")) signOut(auth).then(() => window.location.href = "admin-login.html");
         });
 
         // --- QUOTES LOGIC ---
-        window.loadQuotes = async function() {
+        window.loadQuotes = async function () {
             const tbody = document.getElementById('quotes-table-body');
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>';
             try {
                 const q = query(collection(db, "inquiries"), orderBy("timestamp", "desc"));
                 const snap = await getDocs(q);
                 tbody.innerHTML = '';
-                if (snap.empty) { document.getElementById('no-quotes-msg').style.display = 'block'; } 
+                if (snap.empty) { document.getElementById('no-quotes-msg').style.display = 'block'; }
                 else {
                     document.getElementById('no-quotes-msg').style.display = 'none';
                     snap.forEach(doc => {
@@ -199,7 +473,7 @@
             } catch (e) { console.error(e); }
         }
 
-        window.openViewModal = function(data) {
+        window.openViewModal = function (data) {
             document.getElementById('modalContent').innerHTML = `
                 <p><b>Name:</b> ${data.name}</p>
                 <p><b>Company:</b> ${data.company}</p>
@@ -211,13 +485,13 @@
             document.getElementById('viewModal').style.display = 'flex';
         }
 
-        window.deleteQuote = async function(id) {
-            if(confirm("Delete this inquiry?")) { await deleteDoc(doc(db, "inquiries", id)); loadQuotes(); }
+        window.deleteQuote = async function (id) {
+            if (confirm("Delete this inquiry?")) { await deleteDoc(doc(db, "inquiries", id)); loadQuotes(); }
         }
 
-        // --- PRODUCTS LOGIC (LOCAL ASSETS) ---
-        
-        window.loadProducts = async function() {
+        // --- PRODUCTS LOGIC ---
+
+        window.loadProducts = async function () {
             const tbody = document.getElementById('products-table-body');
             tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Loading...</td></tr>';
 
@@ -230,16 +504,18 @@
                     document.getElementById('no-products-msg').style.display = 'none';
                     snap.forEach(docSnap => {
                         const p = docSnap.data();
-                        const safeP = JSON.stringify({id: docSnap.id, ...p}).replace(/"/g, '&quot;');
-                        
-                        // Handle Image Path (Simple link)
+                        const safeP = JSON.stringify({ id: docSnap.id, ...p }).replace(/"/g, '&quot;');
+
                         const imgDisplay = p.imageUrl ? `<img src="${p.imageUrl}" class="machine-thumb" onerror="this.src='https://placehold.co/50x50?text=No+Img'">` : `<div class="machine-thumb"></div>`;
+
+                        // UPDATED: Show Badge in Table
+                        const badge = p.bestSeller ? '<span style="background:#fef08a; color:#854d0e; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:bold;">★ BEST SELLER</span>' : '<span style="color:#cbd5e1;">-</span>';
 
                         tbody.innerHTML += `
                             <tr>
                                 <td>${imgDisplay}</td>
                                 <td><b>${p.name}</b></td>
-                                <td style="color:#64748b; font-size:0.9rem;">${p.description ? p.description.substring(0, 50) + '...' : '-'}</td>
+                                <td>${badge}</td>
                                 <td style="text-align:right;">
                                     <button class="action-btn btn-edit" onclick="editProduct(${safeP})">Edit</button>
                                     <button class="action-btn btn-del" onclick="deleteProduct('${docSnap.id}')">Del</button>
@@ -250,24 +526,26 @@
             } catch (e) { console.error(e); }
         }
 
-        window.openProductModal = function() {
+        window.openProductModal = function () {
             document.getElementById('productForm').reset();
             document.getElementById('prodId').value = '';
             document.getElementById('productModalTitle').innerText = "Add New Machine";
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        window.editProduct = function(data) {
+        window.editProduct = function (data) {
             document.getElementById('prodId').value = data.id;
             document.getElementById('prodName').value = data.name;
             document.getElementById('prodDesc').value = data.description || '';
-            document.getElementById('prodImage').value = data.imageUrl || ''; // Load text path
-            
+            document.getElementById('prodImage').value = data.imageUrl || '';
+
+            // 2A. ADDED: CHECK THE BOX IF EDITING
+            document.getElementById('prodBestSeller').checked = data.bestSeller || false;
+
             document.getElementById('productModalTitle').innerText = "Edit Machine";
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        // UPDATED: Save Product Logic (Direct Text Save, No Upload)
         document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('saveProductBtn');
@@ -277,8 +555,10 @@
             const id = document.getElementById('prodId').value;
             const data = {
                 name: document.getElementById('prodName').value,
-                imageUrl: document.getElementById('prodImage').value, // Save the path text directly
+                imageUrl: document.getElementById('prodImage').value,
                 description: document.getElementById('prodDesc').value,
+                // 2B. ADDED: SAVE THE CHECKBOX VALUE
+                bestSeller: document.getElementById('prodBestSeller').checked,
                 updatedAt: serverTimestamp()
             };
 
@@ -292,30 +572,31 @@
                 loadProducts();
                 btn.innerText = "SAVE MACHINE";
                 btn.disabled = false;
-            } catch (e) { 
-                alert("Error saving: " + e.message); 
+            } catch (e) {
+                alert("Error saving: " + e.message);
                 btn.innerText = "SAVE MACHINE";
                 btn.disabled = false;
             }
         });
 
-        window.deleteProduct = async function(id) {
-            if(confirm("Delete this machine permanently?")) {
+        window.deleteProduct = async function (id) {
+            if (confirm("Delete this machine permanently?")) {
                 await deleteDoc(doc(db, "products", id));
                 loadProducts();
             }
         }
 
-        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; }
-        
-        window.switchTab = function(tabName) {
+        window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; }
+
+        window.switchTab = function (tabName) {
             document.querySelectorAll('.dashboard-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             const btns = document.querySelectorAll('.nav-btn');
-            if(tabName === 'quotes') btns[0].classList.add('active');
-            if(tabName === 'products') btns[1].classList.add('active');
+            if (tabName === 'quotes') btns[0].classList.add('active');
+            if (tabName === 'products') btns[1].classList.add('active');
         }
     </script>
 </body>
+
 </html>

@@ -8,6 +8,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Badge Style for Dynamic Content */
+        .best-seller-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f59e0b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body class="locked-scroll product-mode">
 
@@ -20,9 +37,7 @@
                 <div class="nav-item dropdown active-page">
                      <a href="product.html" class="nav-item" style="color:#fff;">Product ▾</a>
                      <div class="dropdown-content">
-                        <a href="#machine1">Crusher X1</a>
-                        <a href="#machine2">Grader Pro</a>
-                        <a href="#machine3">Washer 500</a>
+                        <a href="product.html">All Machines</a>
                      </div>
                 </div>
                 
@@ -35,132 +50,141 @@
 
     <div class="sticky-product-nav">
         <div class="container nav-flex-container">
-            <div class="scroll-nav">
-                <a href="#machine1">Crusher X1</a>
-                <a href="#machine2">Grader Pro</a>
-                <a href="#machine3">Washer 500</a>
-                <a href="#machine4">Fillet Master</a>
-                <a href="#machine5">Ice Maker</a>
+            <div class="scroll-nav" id="scrollNavLinks">
+                <span style="color:white; opacity:0.7;">Loading Catalog...</span>
             </div>
             <input type="text" id="searchInput" class="search-box" placeholder="Search Machine...">
         </div>
     </div>
 
     <div class="product-page-wrapper" id="scrollContainer">
-        
-        <section id="machine1" class="product-section">
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="assets/machine-1.png" alt="Crusher">
-                </div>
-                <div class="product-details">
-                    <span class="machine-label">[MACHINE #1]</span>
-                    <h2 class="spec-title">INDUSTRIAL CRUSHER X1</h2>
-                    <ul class="spec-list">
-                        <li>Capacity: 50 Tons/Hour</li>
-                        <li>Material: SS 304 Grade</li>
-                        <li>Power: 15 HP Motor</li>
-                    </ul>
-                    <a href="contact.html" class="cta-button-small">Get Quote</a>
-                    <a href="#" class="download-link">Download Brochure ↓</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="machine2" class="product-section">
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="assets/machine-2.png" alt="Grader">
-                </div>
-                <div class="product-details">
-                    <span class="machine-label">[MACHINE #2]</span>
-                    <h2 class="spec-title">GRADER PRO 2000</h2>
-                    <ul class="spec-list">
-                        <li>Multi-Size Grading</li>
-                        <li>Silent Operation</li>
-                    </ul>
-                    <a href="contact.html" class="cta-button-small">Get Quote</a>
-                    <a href="#" class="download-link">Download Brochure ↓</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="machine3" class="product-section">
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="assets/machine-3.png" alt="Washer">
-                </div>
-                <div class="product-details">
-                    <span class="machine-label">[MACHINE #3]</span>
-                    <h2 class="spec-title">WASHER 500</h2>
-                    <ul class="spec-list">
-                        <li>High Pressure Jets</li>
-                        <li>Conveyor Speed Control</li>
-                    </ul>
-                    <a href="contact.html" class="cta-button-small">Get Quote</a>
-                    <a href="#" class="download-link">Download Brochure ↓</a>
-                </div>
-            </div>
-        </section>
-        
-        </div>
+        <div style="padding: 100px; color: white; font-size: 1.5rem;">Loading Machines from Database...</div>
+    </div>
 
     <footer class="site-footer">
-		<div class="footer-container">
-        
-			<div class="footer-col">
-				<h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
-				<p class="footer-desc">
-					Pioneering the future of food processing technology since 1991. 
-					Engineered for durability, designed for efficiency.
-				</p>
-			</div>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+                <p class="footer-desc">
+                    Pioneering the future of food processing technology since 1991. 
+                    Engineered for durability, designed for efficiency.
+                </p>
+            </div>
 
-			<div class="footer-col">
-				<h4>QUICK LINKS</h4>
-				<ul class="footer-links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="product.html">Our Machines</a></li>
-					<li><a href="company.html">Company Profile</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-			</div>
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Our Machines</a></li>
+                    <li><a href="company.html">Company Profile</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
 
-			<div class="footer-col">
-				<h4>HEAD OFFICE</h4>
-				<p class="contact-info">
-					<strong>Mumbai (Regd. Office)</strong><br>
-					3, V. K. S. Building, Road No.27,<br>
-					Shanti Nagar, Wagle Estate,<br>
-					Thane – 400 604
-				</p>
-				<p class="contact-info">
-					Email: info@marineindustrial.com<br>
-					Phone: +91 22 1234 5678
-				</p>
-			</div>
+            <div class="footer-col">
+                <h4>HEAD OFFICE</h4>
+                <p class="contact-info">
+                    <strong>Mumbai (Regd. Office)</strong><br>
+                    3, V. K. S. Building, Road No.27,<br>
+                    Shanti Nagar, Wagle Estate,<br>
+                    Thane – 400 604
+                </p>
+                <p class="contact-info">
+                    Email: info@marineindustrial.com<br>
+                    Phone: +91 22 1234 5678
+                </p>
+            </div>
 
-		</div>
+        </div>
 
-		<div class="footer-bottom">
-			<p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
-		</div>
-	</footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    <script>
-        // 1. Horizontal Scroll Logic
-        const wrapper = document.getElementById("scrollContainer");
-        wrapper.addEventListener("wheel", (evt) => {
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const container = document.getElementById('scrollContainer');
+        const navLinksContainer = document.getElementById('scrollNavLinks');
+        const searchInput = document.getElementById('searchInput');
+
+        // 1. HORIZONTAL SCROLL LOGIC (Preserved)
+        container.addEventListener("wheel", (evt) => {
             evt.preventDefault();
-            wrapper.scrollBy({ left: evt.deltaY * 3, behavior: 'auto' });
+            container.scrollBy({ left: evt.deltaY * 3, behavior: 'auto' });
         }, { passive: false });
 
-        // 2. Search Logic
-        const searchInput = document.getElementById('searchInput');
-        const sections = document.querySelectorAll('.product-section');
+        // 2. LOAD PRODUCTS FUNCTION
+        async function loadProducts() {
+            try {
+                const snap = await getDocs(collection(db, "products"));
+                
+                container.innerHTML = ''; // Clear loading message
+                navLinksContainer.innerHTML = ''; // Clear nav links
 
+                if (snap.empty) {
+                    container.innerHTML = '<div style="padding:100px; color:white;">No machines found in catalog. Add one in the Admin Dashboard!</div>';
+                    return;
+                }
+
+                let index = 1;
+
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    const machineId = `machine${index}`;
+
+                    // A. BEST SELLER LOGIC
+                    const badgeHTML = p.bestSeller 
+                        ? `<div class="best-seller-badge">★ BEST SELLER</div>` 
+                        : '';
+
+                    // B. IMAGE LOGIC (Fallback if broken)
+                    const imgUrl = p.imageUrl || 'assets/machine-1.png'; // Fallback to asset if empty
+
+                    // C. CREATE CARD HTML
+                    const html = `
+                    <section id="${machineId}" class="product-section">
+                        <div class="product-card" style="position:relative;">
+                            ${badgeHTML}
+                            <div class="product-image-box">
+                                <img src="${imgUrl}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300?text=No+Image'">
+                            </div>
+                            <div class="product-details">
+                                <span class="machine-label">[MACHINE #${index}]</span>
+                                <h2 class="spec-title">${p.name.toUpperCase()}</h2>
+                                <ul class="spec-list">
+                                    <li>${p.description}</li>
+                                </ul>
+                                <a href="contact.html" class="cta-button-small">Get Quote</a>
+                                <a href="#" class="download-link">Download Brochure ↓</a>
+                            </div>
+                        </div>
+                    </section>
+                    `;
+                    container.innerHTML += html;
+
+                    // D. ADD TO NAV LINKS
+                    navLinksContainer.innerHTML += `<a href="#${machineId}">${p.name}</a>`;
+
+                    index++;
+                });
+
+            } catch (error) {
+                console.error("Error loading products:", error);
+                container.innerHTML = '<div style="padding:100px; color:white;">Error loading data. Please refresh.</div>';
+            }
+        }
+
+        // Run Load
+        loadProducts();
+
+        // 3. SEARCH LOGIC (Updated for Dynamic Elements)
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
+            // Re-query sections because they were added dynamically
+            const sections = document.querySelectorAll('.product-section'); 
             
             sections.forEach(section => {
                 const title = section.querySelector('.spec-title').textContent.toLowerCase();
