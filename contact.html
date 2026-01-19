@@ -25,14 +25,11 @@
         <div class="container contact-split">
             <div class="contact-form-box">
                 
-                <form action="https://api.web3forms.com/submit" method="POST" id="mimForm">
+                <form id="mimForm">
                     
                     <input type="hidden" name="access_key" value="5cac6bb6-a2e4-4336-a08d-9e772e2d2250">
-
                     <input type="hidden" name="redirect" value="https://mims-website.vercel.app/success.html">
-
-                    <input type="hidden" name="subject" id="hiddenSubject" value="New Inquiry (Script Not Run)">
-
+                    <input type="hidden" name="subject" id="hiddenSubject" value="New Inquiry">
                     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                     <div class="form-group">
@@ -47,7 +44,7 @@
 
                     <div class="form-group">
                         <label class="form-label">FULL NAME</label>
-                        <input type="text" name="name" class="form-input" required placeholder="John Doe">
+                        <input type="text" name="name" id="userName" class="form-input" required placeholder="John Doe">
                     </div>
 
                     <div class="form-group">
@@ -57,29 +54,41 @@
 
                     <div class="form-group">
                         <label class="form-label">EMAIL ADDRESS</label>
-                        <input type="email" name="email" class="form-input" required placeholder="name@company.com">
+                        <input type="email" name="email" id="userEmail" class="form-input" required placeholder="name@company.com">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">PHONE NUMBER</label>
-                        <input type="text" name="phone" class="form-input" required placeholder="+91 98765 43210">
+                        <input type="text" name="phone" id="userPhone" class="form-input" required placeholder="+91 98765 43210">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">MESSAGE</label>
-                        <textarea name="message" class="form-textarea" rows="4" required placeholder="Details..."></textarea>
+                        <textarea name="message" id="userMessage" class="form-textarea" rows="4" required placeholder="Details..."></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">SEND REQUEST</button>
+                    <button type="submit" id="submitBtn" class="submit-btn">SEND REQUEST</button>
                 </form>
             </div>
 
             <div class="contact-info-box">
                 <div class="info-item">
+                    <h4>ADDRESS</h4>
+                    <p>Plot No. A-123, TTC Industrial Area,<br>MIDC, Pawne, Navi Mumbai,<br>Maharashtra 400705</p>
+                </div>
+                
+                <div class="info-item">
                     <h4>CONTACT</h4>
-                    <p>marineindustrialmachine@gmail.com</p>
-                    <p>+91 98204 63034</p>
-                    <p>+91 98214 43647</p>
+                    <p><i class="ri-mail-send-line"></i> marineindustrialmachine@gmail.com</p>
+                    <p><i class="ri-phone-line"></i> +91 98204 63034</p>
+                    <p><i class="ri-phone-line"></i> +91 98214 43647</p>
+                </div>
+
+                <div class="map-container" style="margin-top: 20px; border-radius: 10px; overflow: hidden;">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.0!2d73.0!3d19.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzAwLjAiTiA3M8KwMDAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
+                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -89,22 +98,62 @@
         <div class="footer-bottom"><p>© 2026 Marine Industrial Machines.</p></div>
     </footer>
 
-    <script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         const form = document.getElementById('mimForm');
-        
-        form.addEventListener('submit', function() {
-            // Get the user inputs
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop normal submit
+            
+            // 1. Show "Sending..." animation
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "SENDING...";
+            submitBtn.style.opacity = "0.7";
+            submitBtn.disabled = true;
+
+            // 2. Custom Subject Logic
             const type = document.getElementById('requestType').value;
             const company = document.getElementById('companyName').value;
-            
-            // Set default if company is empty
             const companyText = company ? company : "Unknown Company";
-            
-            // Create the new subject: "Quote <Tata Steel>"
             const newSubject = type + " <" + companyText + ">";
-            
-            // Force update the hidden field
             document.getElementById('hiddenSubject').value = newSubject;
+
+            // 3. Gather Data for Dashboard
+            const dashboardData = {
+                name: document.getElementById('userName').value,
+                company: companyText,
+                email: document.getElementById('userEmail').value,
+                phone: document.getElementById('userPhone').value,
+                serviceType: type,
+                message: document.getElementById('userMessage').value,
+                timestamp: serverTimestamp() // Saves exact time
+            };
+
+            try {
+                // A. SAVE TO DASHBOARD
+                await addDoc(collection(db, "inquiries"), dashboardData);
+                console.log("Saved to Dashboard!");
+
+                // B. SEND EMAIL (Web3Forms)
+                const formData = new FormData(form);
+                await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+
+                // C. SUCCESS! Redirect
+                window.location.href = "success.html";
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Connection Error. Please check your internet.");
+                submitBtn.innerText = originalText;
+                submitBtn.style.opacity = "1";
+                submitBtn.disabled = false;
+            }
         });
     </script>
 
