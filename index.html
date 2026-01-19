@@ -7,11 +7,67 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .nav-item.dropdown { position: relative; }
+        
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-item.dropdown:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .menu-card {
+            text-decoration: none;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid transparent;
+            display: block;
+        }
+        .menu-card:hover {
+            background: white;
+            border-color: #e2e8f0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .menu-img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        .menu-title {
+            display: block;
+            color: #0f1c2e;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,10 +80,8 @@
             <nav class="nav-links">
                 <div class="nav-item dropdown">
                     <a href="product.html" class="nav-item">Product ▾</a>
-                    <div class="dropdown-content">
-                        <a href="product.html#machine1">Crusher X1</a>
-                        <a href="product.html#machine2">Grader Pro</a>
-                        <a href="product.html#machine3">Washer 500</a>
+                    <div class="mega-menu" id="megaMenuContainer">
+                        <span style="grid-column: span 3; text-align:center; color:#999; font-size:0.9rem;">Loading...</span>
                     </div>
                 </div>
                 
@@ -41,15 +95,14 @@
 
     <section class="hero-section">
         <div class="hero-content-box">
-		
             <div class="hero-logo-wrapper">
-				<img src="assets/logo.png" alt="MIM Logo" class="hero-brand-logo">
-			</div>
+                <img src="assets/logo.png" alt="MIM Logo" class="hero-brand-logo">
+            </div>
 
-			<h1 class="main-title">MARINE INDUSTRIAL MACHINES</h1>
+            <h1 class="main-title">MARINE INDUSTRIAL MACHINES</h1>
         
-			<p class="tagline">India's Premier Manufacturer of Advanced Food Processing Machinery <br> since 1991</p>
-			<a href="product.html" class="hero-btn">EXPLORE MACHINES</a>
+            <p class="tagline">India's Premier Manufacturer of Advanced Food Processing Machinery <br> since 1991</p>
+            <a href="product.html" class="hero-btn">EXPLORE MACHINES</a>
         </div>
     </section>
 
@@ -75,24 +128,11 @@
         </div>
     </section>
 
-    <section class="product-highlight">
+    <section class="product-highlight" id="bestSellerSection" style="display:none;">
         <div class="container">
             <h2 class="caps-heading">FEATURED INNOVATION</h2>
-            <div class="product-card">
-                <div class="product-image-box">
-                    <img src="assets/machine-1.png" alt="Machine">
-                </div>
-                <div class="product-details">
-                    <span class="machine-label">BEST SELLER</span>
-                    <h3 class="spec-title">INDUSTRIAL CRUSHER X1</h3>
-                    <p style="margin-bottom: 20px; color: #555;">The industry standard for high-volume marine processing. Designed for durability and output.</p>
-                    <ul class="spec-list">
-                        <li>2 Tons / Hour Capacity</li>
-                        <li>Full Stainless Steel Body</li>
-                        <li>Automated Safety Sensors</li>
-                    </ul>
-                    <a href="product.html" class="text-link">View Full Specifications &rarr;</a>
-                </div>
+            <div class="product-card" id="bestSellerCard">
+                <div style="padding:40px; text-align:center;">Loading Featured Machine...</div>
             </div>
         </div>
     </section>
@@ -102,40 +142,38 @@
             <h2 class="caps-heading">OUR NATIONAL PRESENCE</h2>
             
             <div class="branch-grid">
-    
-				<div class="branch-item">
-					<div class="branch-img-placeholder">
-						<img src="assets/mumbai.jpg" alt="Mumbai (Regd. Office)">
-					</div>
-					<h4>Mumbai (Regd. Office)</h4>
-					<p>3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604</p>
-				</div>
+                <div class="branch-item">
+                    <div class="branch-img-placeholder">
+                        <img src="assets/mumbai.jpg" alt="Mumbai (Regd. Office)">
+                    </div>
+                    <h4>Mumbai (Regd. Office)</h4>
+                    <p>3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604</p>
+                </div>
 
-				<div class="branch-item">
-					<div class="branch-img-placeholder">
-						<img src="assets/gujarat.jpg" alt="Gujarat Branch">
-					</div>
-					<h4>Gujarat Branch</h4>
-					<p>Chaitram Apartment, Sudama Nagar, Veraval, Gujarat - 362 267</p>
-				</div>
+                <div class="branch-item">
+                    <div class="branch-img-placeholder">
+                        <img src="assets/gujarat.jpg" alt="Gujarat Branch">
+                    </div>
+                    <h4>Gujarat Branch</h4>
+                    <p>Chaitram Apartment, Sudama Nagar, Veraval, Gujarat - 362 267</p>
+                </div>
 
-				<div class="branch-item">
-					<div class="branch-img-placeholder">
-						<img src="assets/orissa.jpg" alt="Orissa Branch">
-					</div>
-					<h4>Orissa Branch</h4>
-					<p>Plot No. 214/1342, Laxmi Sagar Square, Bhubaneshwar - 751 006</p>
-				</div>
+                <div class="branch-item">
+                    <div class="branch-img-placeholder">
+                        <img src="assets/orissa.jpg" alt="Orissa Branch">
+                    </div>
+                    <h4>Orissa Branch</h4>
+                    <p>Plot No. 214/1342, Laxmi Sagar Square, Bhubaneshwar - 751 006</p>
+                </div>
 
-				<div class="branch-item">
-					<div class="branch-img-placeholder">
-						<img src="assets/kerala.jpg" alt="Kerala Branch">
-					</div>
-					<h4>Kerala Branch</h4>
-					<p>Trichattukulam P.O., Cherthala, Alappuzha Dist., Pin - 688 526</p>
-				</div>
-
-			</div>
+                <div class="branch-item">
+                    <div class="branch-img-placeholder">
+                        <img src="assets/kerala.jpg" alt="Kerala Branch">
+                    </div>
+                    <h4>Kerala Branch</h4>
+                    <p>Trichattukulam P.O., Cherthala, Alappuzha Dist., Pin - 688 526</p>
+                </div>
+            </div>
 
             <div class="factory-banner">
                 <div class="factory-icon">
@@ -151,46 +189,127 @@
     </section>
 
     <footer class="site-footer">
-		<div class="footer-container">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+                <p class="footer-desc">
+                    Pioneering the future of food processing technology since 1991. 
+                    Engineered for durability, designed for efficiency.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Our Machines</a></li>
+                    <li><a href="company.html">Company Profile</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>HEAD OFFICE</h4>
+                <p class="contact-info">
+                    <strong>Mumbai (Regd. Office)</strong><br>
+                    3, V. K. S. Building, Road No.27,<br>
+                    Shanti Nagar, Wagle Estate,<br>
+                    Thane – 400 604
+                </p>
+                <p class="contact-info">
+                    Email: info@marineindustrial.com<br>
+                    Phone: +91 22 1234 5678
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs, orderBy, query, where, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- A. LOAD MEGA MENU ---
+        const megaMenu = document.getElementById('megaMenuContainer');
         
-			<div class="footer-col">
-				<h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
-				<p class="footer-desc">
-					Pioneering the future of food processing technology since 1991. 
-					Engineered for durability, designed for efficiency.
-				</p>
-			</div>
+        async function loadMenu() {
+            try {
+                const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+                const snap = await getDocs(q);
+                
+                megaMenu.innerHTML = ''; 
 
-			<div class="footer-col">
-				<h4>QUICK LINKS</h4>
-				<ul class="footer-links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="product.html">Our Machines</a></li>
-					<li><a href="company.html">Company Profile</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-			</div>
+                if (snap.empty) {
+                    megaMenu.innerHTML = '<span style="grid-column: span 3; text-align:center;">No machines found.</span>';
+                    return;
+                }
 
-			<div class="footer-col">
-				<h4>HEAD OFFICE</h4>
-				<p class="contact-info">
-					<strong>Mumbai (Regd. Office)</strong><br>
-					3, V. K. S. Building, Road No.27,<br>
-					Shanti Nagar, Wagle Estate,<br>
-					Thane – 400 604
-				</p>
-				<p class="contact-info">
-					Email: info@marineindustrial.com<br>
-					Phone: +91 22 1234 5678
-				</p>
-			</div>
+                let index = 1;
+                snap.forEach(doc => {
+                    if (index <= 6) {
+                        const p = doc.data();
+                        const imgUrl = p.imageUrl || 'assets/machine-1.png';
+                        
+                        megaMenu.innerHTML += `
+                        <a href="product.html#machine${index}" class="menu-card">
+                            <img src="${imgUrl}" class="menu-img" onerror="this.src='https://placehold.co/100x80?text=IMG'">
+                            <span class="menu-title">${p.name}</span>
+                        </a>`;
+                    }
+                    index++;
+                });
 
-		</div>
+                megaMenu.innerHTML += `
+                    <a href="product.html" class="menu-card" style="display:flex; align-items:center; justify-content:center; background:#0f1c2e; color:white;">
+                        <span class="menu-title" style="color:white;">View Full<br>Catalog →</span>
+                    </a>
+                `;
 
-		<div class="footer-bottom">
-			<p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
-		</div>
-	</footer>
+            } catch (e) { console.error("Menu Error", e); }
+        }
+        loadMenu();
+
+        // --- B. LOAD BEST SELLER ---
+        const bsSection = document.getElementById('bestSellerSection');
+        const bsCard = document.getElementById('bestSellerCard');
+
+        async function loadBestSeller() {
+            try {
+                // Find 1 product where bestSeller == true
+                const q = query(collection(db, "products"), where("bestSeller", "==", true), limit(1));
+                const snap = await getDocs(q);
+
+                if (!snap.empty) {
+                    const p = snap.docs[0].data();
+                    const imgUrl = p.imageUrl || 'assets/machine-1.png';
+                    
+                    // Show Section
+                    bsSection.style.display = 'block';
+
+                    // Inject Content
+                    bsCard.innerHTML = `
+                        <div class="product-image-box">
+                            <img src="${imgUrl}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300?text=No+Image'">
+                        </div>
+                        <div class="product-details">
+                            <span class="machine-label" style="background:#f59e0b; color:white; padding:5px 10px; border-radius:4px;">★ BEST SELLER</span>
+                            <h3 class="spec-title" style="margin-top:10px;">${p.name.toUpperCase()}</h3>
+                            <p style="margin-bottom: 20px; color: #555;">${p.description}</p>
+                            <a href="product.html" class="text-link">View Full Catalog &rarr;</a>
+                        </div>
+                    `;
+                } else {
+                    bsSection.style.display = 'none'; // Hide if no best seller marked
+                }
+
+            } catch (e) { console.error("Best Seller Error", e); }
+        }
+        loadBestSeller();
+
+    </script>
 
 </body>
 </html>
