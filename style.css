@@ -606,3 +606,78 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
     font-family: 'Cinzel', sans-serif !important;
     letter-spacing: 0.5px; /* Matches the clean Home page look */
 }
+
+
+/* =========================================
+   PHASE 3: MOBILE OPTIMIZATION
+   ========================================= */
+
+/* 1. HIDE HAMBURGER ON DESKTOP */
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #1e293b; /* Dark Blue bars */
+    border-radius: 3px;
+}
+
+/* 2. MOBILE VIEW (Screens smaller than 768px) */
+@media (max-width: 768px) {
+    
+    /* Show Hamburger, Hide Nav Links */
+    .hamburger {
+        display: block;
+        z-index: 2000; /* On top of everything */
+    }
+
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* The Mobile Menu Container */
+    .nav-links {
+        position: fixed;
+        left: -100%; /* Hidden off-screen by default */
+        top: 0; 
+        flex-direction: column;
+        background-color: white;
+        width: 100%;
+        height: 100vh; /* Full screen height */
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding-top: 100px; /* Push links down */
+        z-index: 1500;
+    }
+
+    .nav-links.active {
+        left: 0; /* Slide in */
+    }
+
+    .nav-item {
+        margin: 25px 0;
+        font-size: 1.2rem;
+    }
+
+    /* Fix Header Width on Mobile */
+    .site-header.floating-header {
+        width: 95% !important;
+        padding: 10px 20px;
+    }
+
+    /* Hide the 'Get Quote' button on tiny screens if needed, 
+       or move it inside the menu (advanced). 
+       For now, let's keep it visible but small. */
+    .cta-button {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+}
