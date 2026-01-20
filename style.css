@@ -594,3 +594,15 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 
 .menu-item:last-child { border-bottom: none; }
 .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
+
+
+/* --- GLOBAL FOOTER FONT FIX --- */
+.site-footer, 
+.site-footer h3, 
+.site-footer h4, 
+.site-footer p, 
+.site-footer a, 
+.site-footer li {
+    font-family: 'Cinzel', sans-serif !important;
+    letter-spacing: 0.5px; /* Matches the clean Home page look */
+}

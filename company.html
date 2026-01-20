@@ -8,30 +8,64 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- FORCE HEADER TO TOP --- */
+.site-header.floating-header {
+            position: fixed !important;
+            top: 20px !important;
+            
+            /* Bulletproof Centering */
+            left: 0 !important;
+            right: 0 !important;
+            margin: 0 auto !important;
+            transform: none !important;
+            
+            width: 90% !important;
+            max-width: 1200px !important;
+            z-index: 1000;
+            border-radius: 50px;
+            bottom: auto !important;
+
+        }
+
+        /* --- MEGA MENU STYLE --- */
+        .nav-item.dropdown { position: relative; }
+        .mega-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+            width: 250px; background: white; padding: 15px 0; border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); opacity: 0; visibility: hidden;
+            transition: 0.2s ease; z-index: 1000; border-top: 3px solid #d97706;
+        }
+        .nav-item.dropdown:hover .mega-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .menu-item {
+            display: block; padding: 12px 20px; color: #1e293b; text-decoration: none;
+            font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; text-align: left; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
+    </style>
 </head>
 <body class="focus-mode">
 
     <header class="site-header floating-header">
-		<section class="contact-section"> 
-		<section class="contact-section" style="padding-top: 160px;">
-		<div class="header-content">
-			<a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
-			<nav class="nav-links">
-				<div class="nav-item dropdown">
-					<a href="product.html" class="nav-item">Product ▾</a>
-					<div class="mega-menu" id="megaMenuContainer">
-						<div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
-					</div>
-				</div>
-            
-				<a href="company.html" class="nav-item">Company</a> 
-				<a href="contact.html" class="nav-item">Support</a>
-			</nav>
-			<a href="contact.html" class="cta-button">Get Quote</a>
-		</div>
-	</header>
+        <div class="header-content">
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
+            <nav class="nav-links">
+                <div class="nav-item dropdown inactive-link">
+                    <a href="product.html" class="nav-item">Product ▾</a>
+                    <div class="mega-menu" id="megaMenuContainer">
+                        <div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
+                    </div>
+                </div>
+                
+                <a href="company.html" class="nav-item active-page">Company</a>
+                
+                <a href="support.html" class="nav-item inactive-link">Support</a>
+            </nav>
+            <a href="contact.html" class="cta-button">Get Quote</a>
+        </div>
+    </header>
 
-    <section class="company-hero">
+    <section class="company-hero" style="padding-top: 180px;">
         <div class="container hero-split">
             <div class="hero-text">
                 <h1 class="main-title" style="text-align: left;">ENGINEERING EXCELLENCE</h1>
@@ -98,81 +132,63 @@
     </section>
 
     <footer class="site-footer">
-		<div class="footer-container">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+                <p class="footer-desc">Pioneering the future of food processing technology since 1991.</p>
+            </div>
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Our Machines</a></li>
+                    <li><a href="company.html">Company Profile</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>HEAD OFFICE</h4>
+                <p class="contact-info">
+                    <strong>Mumbai (Regd. Office)</strong><br>
+                    3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Marine Industrial Machines. All Rights Reserved.</p></div>
+    </footer>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const megaMenu = document.getElementById('megaMenuContainer');
         
-			<div class="footer-col">
-				<h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
-				<p class="footer-desc">
-					Pioneering the future of food processing technology since 1991. 
-					Engineered for durability, designed for efficiency.
-				</p>
-			</div>
+        async function loadMenu() {
+            try {
+                const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+                const snap = await getDocs(q);
+                
+                megaMenu.innerHTML = ''; 
 
-			<div class="footer-col">
-				<h4>QUICK LINKS</h4>
-				<ul class="footer-links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="product.html">Our Machines</a></li>
-					<li><a href="company.html">Company Profile</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-			</div>
+                if (snap.empty) {
+                    megaMenu.innerHTML = '<span style="display:block; padding:10px; text-align:center;">No machines found.</span>';
+                    return;
+                }
 
-			<div class="footer-col">
-				<h4>HEAD OFFICE</h4>
-				<p class="contact-info">
-					<strong>Mumbai (Regd. Office)</strong><br>
-					3, V. K. S. Building, Road No.27,<br>
-					Shanti Nagar, Wagle Estate,<br>
-					Thane – 400 604
-				</p>
-				<p class="contact-info">
-					Email: info@marineindustrial.com<br>
-					Phone: +91 22 1234 5678
-				</p>
-			</div>
+                let index = 1;
+                snap.forEach(doc => {
+                    if (index <= 8) {
+                        const p = doc.data();
+                        megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
+                    }
+                    index++;
+                });
+                
+                megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
 
-		</div>
-
-		<div class="footer-bottom">
-			<p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
-		</div>
-	</footer>
-
-	<script type="module">
-		import { db } from './firebase-config.js';
-		import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-		const megaMenu = document.getElementById('megaMenuContainer');
-		
-		async function loadMenu() {
-			try {
-				const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
-				const snap = await getDocs(q);
-            
-				megaMenu.innerHTML = ''; 
-
-				if (snap.empty) {
-					megaMenu.innerHTML = '<span style="display:block; padding:10px; text-align:center;">No machines found.</span>';
-					return;
-				}
-
-				let index = 1;
-				snap.forEach(doc => {
-					// Show top 8 machines
-					if (index <= 8) {
-						const p = doc.data();
-						megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
-					}
-					index++;
-				});
-            
-				// Add "View All" link at bottom
-				megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
-
-			} catch (e) { console.error("Menu Error", e); }
-		}
-		loadMenu();
-	</script>
+            } catch (e) { console.error("Menu Error", e); }
+        }
+        loadMenu();
+    </script>
 </body>
 </html>

@@ -10,11 +10,33 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- 1. SEARCH BAR --- */
+        /* --- 1. JITTER FIX: Force Scrollbar Track --- */
+        html {
+            overflow-y: scroll; /* Keeps width consistent with Company page */
+        }
+
+        /* --- 2. HEADER: Exact Match to Company Page --- */
+        .site-header.floating-header {
+            position: fixed !important;
+            top: 20px !important;
+            
+            /* Bulletproof Centering */
+            left: 0 !important;
+            right: 0 !important;
+            margin: 0 auto !important;
+            transform: none !important;
+            
+            width: 90% !important;
+            max-width: 1200px !important;
+            z-index: 1000;
+            border-radius: 50px;
+            bottom: auto !important;
+
+        }
+        /* --- 3. SEARCH BAR --- */
         .search-container {
             max-width: 600px;
-            /* Margin to clear the floating header */
-            margin: 140px auto 30px auto; 
+            margin: 160px auto 30px auto; 
             position: relative;
             padding: 0 20px;
             z-index: 5;
@@ -48,7 +70,7 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
-        /* --- 2. MEGA MENU STYLES (Added here to ensure it works even if not in style.css yet) --- */
+        /* --- 4. MEGA MENU STYLES --- */
         .nav-item.dropdown { position: relative; }
         
         .mega-menu {
@@ -87,7 +109,7 @@
         .menu-item:last-child { border-bottom: none; }
         .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
 
-        /* --- 3. BADGE STYLE --- */
+        /* --- 5. BADGE STYLE --- */
         .product-card { position: relative; }
 
         .best-seller-badge {
@@ -105,6 +127,21 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
+		
+		.nav-links .nav-item.inactive-link {
+            opacity: 0.37 !important; /* Force 37% opacity */
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links .nav-item.inactive-link:hover {
+            opacity: 1 !important; /* Full visibility on hover */
+        }
+		
+		.site-footer {
+            font-family: 'Barlow', sans-serif !important;
+        }
+        
+
     </style>
 </head>
 <body class="locked-scroll product-mode">
@@ -114,14 +151,15 @@
             <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
             <nav class="nav-links">
                 <div class="nav-item dropdown active-page">
-                     <a href="product.html" class="nav-item" style="color:#fff;">Product ▾</a>
-                     <div class="mega-menu" id="megaMenuContainer">
+                    <a href="product.html" class="nav-item">Product ▾</a>
+                    <div class="mega-menu" id="megaMenuContainer">
                         <div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
-                     </div>
+                    </div>
                 </div>
                 
-                <a href="company.html" class="nav-item">Company</a>
-                <a href="contact.html" class="nav-item">Support</a>
+                <a href="company.html" class="nav-item inactive-link">Company</a>
+                
+                <a href="support.html" class="nav-item inactive-link">Support</a>
             </nav>
             <a href="contact.html" class="cta-button">Get Quote</a>
         </div>

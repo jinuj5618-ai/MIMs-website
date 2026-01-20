@@ -3,151 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get a Quote | MIM</title>
+    <title>Contact | Marine Industrial Machines</title>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css"> 
 
     <style>
-        /* --- NEW CARD DESIGN STYLES --- */
-        body {
-            background-color: #f3f4f6; /* Light gray background like the image */
+        /* --- FORCE HEADER TO TOP (Matches Company Page) --- */
+        .site-header.floating-header {
+            position: fixed !important;
+            top: 20px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 90% !important;
+            max-width: 1200px !important;
+            z-index: 1000;
+            border-radius: 50px;
+            bottom: auto !important;
         }
 
-        .page-container {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 20px;
+        /* --- MEGA MENU STYLE --- */
+        .nav-item.dropdown { position: relative; }
+        .mega-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+            width: 250px; background: white; padding: 15px 0; border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); opacity: 0; visibility: hidden;
+            transition: 0.2s ease; z-index: 1000; border-top: 3px solid #d97706;
         }
+        .nav-item.dropdown:hover .mega-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .menu-item {
+            display: block; padding: 12px 20px; color: #1e293b; text-decoration: none;
+            font-size: 0.95rem; border-bottom: 1px solid #f1f5f9; text-align: left; transition: 0.2s;
+        }
+        .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
 
+        /* --- PAGE LAYOUT --- */
+        body { background-color: #f2f1ec; }
+        
+        /* This margin pushes the form down so it doesn't hide behind the header */
+        .page-container { 
+            max-width: 1200px; 
+            margin: 180px auto 60px auto; 
+            padding: 0 20px; 
+        } 
+        
         .contact-card {
-            display: flex;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden; /* Ensures the blue side corners stay rounded */
+            display: flex; background: white; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden;
         }
 
         /* LEFT SIDE: FORM */
-        .form-side {
-            flex: 1.4; /* Takes up 60% of width */
-            padding: 60px;
-        }
-
-        .form-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #9ca3af;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 16px;
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-family: 'Barlow', sans-serif;
-            font-size: 1rem;
-            color: #1f2937;
-            margin-bottom: 25px;
-            transition: 0.3s;
-            box-sizing: border-box;
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: #365b6d;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(54, 91, 109, 0.1);
-        }
-
-        .submit-btn {
-            background-color: #2b4b60; /* Dark Teal Button */
-            color: white;
-            width: 100%;
-            padding: 18px;
-            font-weight: 700;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: background 0.3s;
-        }
+        .form-side { flex: 1.4; padding: 60px; }
+        .form-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: #9ca3af; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .form-input, .form-select, .form-textarea { width: 100%; padding: 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; font-family: 'Barlow', sans-serif; font-size: 1rem; color: #1f2937; margin-bottom: 25px; transition: 0.3s; box-sizing: border-box; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #365b6d; outline: none; box-shadow: 0 0 0 4px rgba(54, 91, 109, 0.1); }
+        
+        .submit-btn { background-color: #2b4b60; color: white; width: 100%; padding: 18px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: background 0.3s; }
         .submit-btn:hover { background-color: #1e3a4e; }
 
-        /* RIGHT SIDE: INFO (Dark Blue) */
-        .info-side {
-            flex: 1; /* Takes up 40% of width */
-            background-color: #2b4b60; /* The Dark Blue from Image */
-            color: white;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .info-block h4 {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 10px;
-        }
-
-        .info-block p, .info-block a {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: white;
-            margin: 0;
-            text-decoration: none;
-        }
-
+        /* RIGHT SIDE: INFO */
+        .info-side { flex: 1; background-color: #2b4b60; color: white; padding: 50px; display: flex; flex-direction: column; gap: 30px; }
+        .info-block h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+        .info-block p, .info-block a { font-size: 1rem; line-height: 1.6; color: white; margin: 0; text-decoration: none; }
         .info-icon { margin-right: 10px; opacity: 0.7; }
+        .mini-map { width: 100%; height: 180px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); overflow: hidden; margin-top: 10px; }
 
-        /* MAP STYLING */
-        .mini-map {
-            width: 100%;
-            height: 180px;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.1);
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        /* MOBILE RESPONSIVE */
         @media (max-width: 900px) {
             .contact-card { flex-direction: column; }
-            .form-side { padding: 30px; }
-            .info-side { padding: 30px; }
+            .form-side, .info-side { padding: 30px; }
+            .page-container { margin-top: 140px; }
         }
     </style>
 </head>
-<body>
+<body class="focus-mode">
 
     <header class="site-header floating-header">
-		<section class="contact-section"> 
-		<section class="contact-section" style="padding-top: 160px;">
-		<div class="header-content">
-			<a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
-			<nav class="nav-links">
-				<div class="nav-item dropdown">
-					<a href="product.html" class="nav-item">Product ▾</a>
-					<div class="mega-menu" id="megaMenuContainer">
-						<div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
-					</div>
-				</div>
-            
-				<a href="company.html" class="nav-item">Company</a> 
-				<a href="contact.html" class="nav-item">Support</a>
-			</nav>
-			<a href="contact.html" class="cta-button">Get Quote</a>
-		</div>
-	</header>
+        <div class="header-content">
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
+            <nav class="nav-links">
+                <div class="nav-item dropdown">
+                    <a href="product.html" class="nav-item">Product ▾</a>
+                    <div class="mega-menu" id="megaMenuContainer">
+                        <div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
+                    </div>
+                </div>
+                
+                <a href="company.html" class="nav-item">Company</a> 
+                <a href="support.html" class="nav-item">Support</a>
+            </nav>
+            <a href="contact.html" class="cta-button">Get Quote</a>
+        </div>
+    </header>
 
     <div class="page-container">
         <div class="contact-card">
@@ -193,11 +139,7 @@
                         <label class="form-label">Related Machine (Optional)</label>
                         <select class="form-select" id="relatedMachine" name="related_machine">
                             <option value="">-- Select Machine --</option>
-                            <option value="Industrial Shredder">Industrial Shredder</option>
-                            <option value="Baling Machine">Baling Machine</option>
-                            <option value="Conveyor System">Conveyor System</option>
-                            <option value="Custom Project">Custom Project</option>
-                        </select>
+                            </select>
                     </div>
 
                     <div>
@@ -210,7 +152,6 @@
             </div>
 
             <div class="info-side">
-                
                 <div class="info-block">
                     <h4>REGISTERED OFFICE</h4>
                     <p>3, V. K. S. Building, Road No.27,<br>Shanti Nagar, Wagle Estate,<br>Thane– 400 604, Maharashtra.</p>
@@ -223,7 +164,7 @@
                     <h4>MAIN FACTORY</h4>
                     <p>Bldg No. 82, Sector II-A,<br>Renaissance Industrial Smart City,<br>Vashere, Bhiwandi - 421 302</p>
                     <div class="mini-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.904982479857!2d73.16909767609555!3d19.329928981927562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7979bb6f0bb67%3A0x413701ae9dc166da!2sMarine%20Industrial%20Machines!5e0!3m2!1sen!2sin!4v1768836728618!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.904982479857!2d73.16909767609555!3d19.329928981927562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7979bb6f0bb67%3A0x413701ae9dc166da!2sMarine%20Industrial%20Machines!5e0!3m2!1sen!2sin!4v1768836728618!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
 
@@ -238,33 +179,93 @@
                     <h4>HOURS</h4>
                     <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
                 </div>
-
             </div>
         </div>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+                <p class="footer-desc">Pioneering the future of food processing technology since 1991.</p>
+            </div>
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Our Machines</a></li>
+                    <li><a href="company.html">Company Profile</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>HEAD OFFICE</h4>
+                <p class="contact-info">
+                    <strong>Mumbai (Regd. Office)</strong><br>
+                    3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Marine Industrial Machines. All Rights Reserved.</p></div>
+    </footer>
+
     <script type="module">
         import { db } from './firebase-config.js';
-        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { collection, addDoc, getDocs, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // 1. LOAD MEGA MENU
+        const megaMenu = document.getElementById('megaMenuContainer');
+        async function loadMenu() {
+            try {
+                const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+                const snap = await getDocs(q);
+                megaMenu.innerHTML = ''; 
+
+                let index = 1;
+                snap.forEach(doc => {
+                    if (index <= 8) {
+                        const p = doc.data();
+                        megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
+                    }
+                    index++;
+                });
+                megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
+            } catch (e) { console.error("Menu Error", e); }
+        }
+        loadMenu();
+
+        // 2. LOAD MACHINES INTO DROPDOWN
+        async function loadMachineDropdown() {
+            const select = document.getElementById('relatedMachine');
+            if(!select) return;
+            const snap = await getDocs(collection(db, "products"));
+            snap.forEach(doc => {
+                const p = doc.data();
+                const opt = document.createElement('option');
+                opt.value = p.name;
+                opt.innerText = p.name;
+                select.appendChild(opt);
+            });
+        }
+        loadMachineDropdown();
+
+        // 3. FORM SUBMISSION LOGIC
         const form = document.getElementById('mimForm');
         const submitBtn = document.getElementById('submitBtn');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
             
-            // 1. Show Loading State
             const originalText = submitBtn.innerText;
             submitBtn.innerText = "SENDING...";
             submitBtn.style.opacity = "0.7";
             submitBtn.disabled = true;
 
-            // 2. Prepare Data
             const type = document.getElementById('requestType').value;
-            const company = document.getElementById('companyName').value || "Unknown Company";
+            const company = document.getElementById('companyName').value || "Unknown";
             
-            // Update Hidden Subject for Email
-            document.getElementById('hiddenSubject').value = type + " <" + company + ">";
+            // Set Email Subject
+            document.getElementById('hiddenSubject').value = type + " - " + company;
 
             const dashboardData = {
                 serviceType: type,
@@ -278,7 +279,7 @@
             };
 
             try {
-                // A. Save to Firebase (This is where it usually gets stuck if rules are wrong)
+                // A. Save to Dashboard
                 await addDoc(collection(db, "inquiries"), dashboardData);
                 console.log("✅ Saved to Dashboard");
 
@@ -290,61 +291,17 @@
                 });
                 console.log("✅ Email Sent");
 
-                // C. Success Redirect
+                // C. Success
                 window.location.href = "success.html";
 
             } catch (error) {
-                console.error("❌ Submission Error:", error);
-                
-                // DETAILED ERROR ALERT FOR YOU
-                if (error.code === 'permission-denied') {
-                    alert("⚠️ SYSTEM ERROR: Database Permission Denied.\n\nGo to Firebase Console > Firestore > Rules and change 'allow write: if false' to 'allow write: if true'.");
-                } else {
-                    alert("Error submitting form: " + error.message + "\n\nCheck the Console (F12) for details.");
-                }
-
-                // Reset button so user can try again
+                console.error("Submission Error:", error);
+                alert("Error sending message. Check console.");
                 submitBtn.innerText = originalText;
                 submitBtn.style.opacity = "1";
                 submitBtn.disabled = false;
             }
         });
     </script>
-
-	<script type="module">
-		import { db } from './firebase-config.js';
-		import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-		const megaMenu = document.getElementById('megaMenuContainer');
-		
-		async function loadMenu() {
-			try {
-				const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
-				const snap = await getDocs(q);
-            
-				megaMenu.innerHTML = ''; 
-
-				if (snap.empty) {
-					megaMenu.innerHTML = '<span style="display:block; padding:10px; text-align:center;">No machines found.</span>';
-					return;
-				}
-
-				let index = 1;
-				snap.forEach(doc => {
-					// Show top 8 machines
-					if (index <= 8) {
-						const p = doc.data();
-						megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
-					}
-					index++;
-				});
-            
-				// Add "View All" link at bottom
-				megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
-
-			} catch (e) { console.error("Menu Error", e); }
-		}
-		loadMenu();
-	</script>
 </body>
 </html>

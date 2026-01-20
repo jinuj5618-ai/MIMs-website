@@ -8,38 +8,110 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
-    
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- 1. JITTER FIX --- */
+        html { overflow-y: scroll; }
+
+        /* --- 2. HEADER FIX (Matches Company/Product) --- */
+        .site-header.floating-header {
+            position: fixed !important;
+            top: 20px !important;
+            left: 0 !important;
+            right: 0 !important;
+            margin: 0 auto !important;
+            transform: none !important;
+            width: 90% !important;
+            max-width: 1200px !important;
+            z-index: 1000;
+            border-radius: 50px;
+            bottom: auto !important;
+            
+        }
+
+        /* --- 3. MEGA MENU STYLES --- */
+        .nav-item.dropdown { position: relative; }
+        
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 250px;
+            background: white;
+            padding: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s ease;
+            z-index: 1000;
+            border-top: 3px solid #d97706;
+        }
+
+        .nav-item.dropdown:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .menu-item {
+            display: block;
+            padding: 12px 20px;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
+
+        /* --- 4. NAVIGATION STATES (Red Underline + Opacity) --- */
+        .nav-item.inactive-link {
+            opacity: 0.37 !important;
+            transition: 0.3s;
+        }
+        .nav-item.inactive-link:hover { opacity: 1 !important; }
+
+        .nav-item.active-page {
+            opacity: 1 !important;
+            position: relative;
+            font-weight: 700;
+        }
+
+
+        /* --- 5. FOOTER FONT FIX --- */
+        .site-footer, .site-footer * { 
+            font-family: 'Barlow', sans-serif !important; 
+            letter-spacing: 0.5px;
+        }
+    </style>
 </head>
 
 <body class="focus-mode">
 
-    <header class="site-header">
+    <header class="site-header floating-header">
         <div class="header-content">
-            <a href="index.html" class="logo">
-                <img src="assets/logo.png" alt="MIM Logo">
-            </a>
+            <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
             <nav class="nav-links">
                 <div class="nav-item dropdown inactive-link">
                      <a href="product.html" class="nav-item">Product ▾</a>
-                     <div class="dropdown-content">
-                        <a href="product.html#machine1">Crusher X1</a>
-                        <a href="product.html#machine2">Grader Pro</a>
-                        <a href="product.html#machine3">Washer 500</a>
+                     <div class="mega-menu" id="megaMenuContainer">
+                        <div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
                      </div>
                 </div>
                 
                 <a href="company.html" class="nav-item inactive-link">Company</a>
-                
                 <a href="support.html" class="nav-item active-page">Support</a>
             </nav>
             <a href="contact.html" class="cta-button">Get Quote</a>
         </div>
     </header>
 
-    <section class="support-hero">
+    <section class="support-hero" style="padding-top: 180px;">
         <div class="container hero-split">
             <div class="hero-text">
                 <h1 class="main-title" style="text-align: left;">MIM SUPPORT</h1>
@@ -70,27 +142,21 @@
             <div class="triage-grid">
                 
                 <div class="triage-card urgent-card">
-                    <div class="icon-box">
-                        <i class="ri-alert-fill" style="color: var(--accent-color);"></i>
-                    </div>
+                    <div class="icon-box"><i class="ri-alert-fill" style="color: var(--accent-color);"></i></div>
                     <h3>Technical Issue</h3>
                     <p>For machine faults, calibration errors, or parts failure. We respond within 24 hours.</p>
                     <a href="contact.html" class="triage-btn">Report Fault &rarr;</a>
                 </div>
 
                 <div class="triage-card">
-                    <div class="icon-box">
-                        <i class="ri-tools-fill"></i>
-                    </div>
+                    <div class="icon-box"><i class="ri-tools-fill"></i></div>
                     <h3>Annual Maintenance</h3>
                     <p>Schedule your routine servicing to keep warranty valid and efficiency high.</p>
                     <a href="contact.html" class="triage-btn">Book Service &rarr;</a>
                 </div>
 
                 <div class="triage-card">
-                    <div class="icon-box">
-                        <i class="ri-settings-4-fill"></i>
-                    </div>
+                    <div class="icon-box"><i class="ri-settings-4-fill"></i></div>
                     <h3>Spare Parts</h3>
                     <p>Order genuine SS 304 replacement parts for any MIM machine model.</p>
                     <a href="contact.html" class="triage-btn">Order Parts &rarr;</a>
@@ -120,46 +186,63 @@
     </section>
 
     <footer class="site-footer">
-		<div class="footer-container">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
+                <p class="footer-desc">Pioneering the future of food processing technology since 1991.</p>
+            </div>
+            <div class="footer-col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Our Machines</a></li>
+                    <li><a href="company.html">Company Profile</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>HEAD OFFICE</h4>
+                <p class="contact-info">
+                    <strong>Mumbai (Regd. Office)</strong><br>
+                    3, V. K. S. Building, Road No.27, Shanti Nagar, Wagle Estate, Thane – 400 604
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>© 2026 Marine Industrial Machines. All Rights Reserved.</p></div>
+    </footer>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const megaMenu = document.getElementById('megaMenuContainer');
         
-			<div class="footer-col">
-				<h3 class="footer-logo-text">MARINE INDUSTRIAL MACHINES</h3>
-				<p class="footer-desc">
-					Pioneering the future of food processing technology since 1991. 
-					Engineered for durability, designed for efficiency.
-				</p>
-			</div>
+        async function loadMenu() {
+            try {
+                const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+                const snap = await getDocs(q);
+                
+                megaMenu.innerHTML = ''; 
 
-			<div class="footer-col">
-				<h4>QUICK LINKS</h4>
-				<ul class="footer-links">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="product.html">Our Machines</a></li>
-					<li><a href="company.html">Company Profile</a></li>
-					<li><a href="contact.html">Contact Us</a></li>
-				</ul>
-			</div>
+                if (snap.empty) {
+                    megaMenu.innerHTML = '<span style="display:block; padding:10px; text-align:center;">No machines found.</span>';
+                    return;
+                }
 
-			<div class="footer-col">
-				<h4>HEAD OFFICE</h4>
-				<p class="contact-info">
-					<strong>Mumbai (Regd. Office)</strong><br>
-					3, V. K. S. Building, Road No.27,<br>
-					Shanti Nagar, Wagle Estate,<br>
-					Thane – 400 604
-				</p>
-				<p class="contact-info">
-					Email: info@marineindustrial.com<br>
-					Phone: +91 22 1234 5678
-				</p>
-			</div>
+                let index = 1;
+                snap.forEach(doc => {
+                    if (index <= 8) {
+                        const p = doc.data();
+                        megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
+                    }
+                    index++;
+                });
+                
+                megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
 
-		</div>
-
-		<div class="footer-bottom">
-			<p>&copy; 2026 Marine Industrial Machines. All Rights Reserved.</p>
-		</div>
-	</footer>
-
+            } catch (e) { console.error("Menu Error", e); }
+        }
+        loadMenu();
+    </script>
 </body>
 </html>
