@@ -11,27 +11,23 @@
 </head>
 <body class="focus-mode">
 
-    <header class="site-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">
-                <img src="assets/logo.png" alt="MIM Logo">
-            </a>
-            <nav class="nav-links">
-                <div class="nav-item dropdown inactive-link">
-                     <a href="product.html" class="nav-item">Product ▾</a>
-                     <div class="dropdown-content">
-                        <a href="product.html#machine1">Crusher X1</a>
-                        <a href="product.html#machine2">Grader Pro</a>
-                        <a href="product.html#machine3">Washer 500</a>
-                     </div>
-                </div>
-                
-                <a href="company.html" class="nav-item active-page">Company</a>
-                <a href="support.html" class="nav-item inactive-link">Support</a>
-            </nav>
-            <a href="contact.html" class="cta-button">Get Quote</a>
-        </div>
-    </header>
+    <header class="site-header floating-header">
+		<div class="header-content">
+			<a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
+			<nav class="nav-links">
+				<div class="nav-item dropdown">
+					<a href="product.html" class="nav-item">Product ▾</a>
+					<div class="mega-menu" id="megaMenuContainer">
+						<div style="padding:15px; text-align:center; color:#999; font-size:0.8rem;">Loading...</div>
+					</div>
+				</div>
+            
+				<a href="company.html" class="nav-item">Company</a> 
+				<a href="contact.html" class="nav-item">Support</a>
+			</nav>
+			<a href="contact.html" class="cta-button">Get Quote</a>
+		</div>
+	</header>
 
     <section class="company-hero">
         <div class="container hero-split">
@@ -141,5 +137,40 @@
 		</div>
 	</footer>
 
+	<script type="module">
+		import { db } from './firebase-config.js';
+		import { collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+		const megaMenu = document.getElementById('megaMenuContainer');
+		
+		async function loadMenu() {
+			try {
+				const q = query(collection(db, "products"), orderBy("updatedAt", "desc"));
+				const snap = await getDocs(q);
+            
+				megaMenu.innerHTML = ''; 
+
+				if (snap.empty) {
+					megaMenu.innerHTML = '<span style="display:block; padding:10px; text-align:center;">No machines found.</span>';
+					return;
+				}
+
+				let index = 1;
+				snap.forEach(doc => {
+					// Show top 8 machines
+					if (index <= 8) {
+						const p = doc.data();
+						megaMenu.innerHTML += `<a href="product.html#machine${index}" class="menu-item">${p.name}</a>`;
+					}
+					index++;
+				});
+            
+				// Add "View All" link at bottom
+				megaMenu.innerHTML += `<a href="product.html" class="menu-item" style="color:#d97706; font-weight:600;">View Full Catalog →</a>`;
+
+			} catch (e) { console.error("Menu Error", e); }
+		}
+		loadMenu();
+	</script>
 </body>
 </html>

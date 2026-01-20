@@ -10,10 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* --- 1. SEARCH BAR (Professional) --- */
+        /* --- 1. SEARCH BAR --- */
         .search-container {
             max-width: 600px;
-            margin: 120px auto 30px auto;
+            /* Added margin-top to prevent Header Overlap since Ribbon is gone */
+            margin: 120px auto 30px auto; 
             position: relative;
             padding: 0 20px;
             z-index: 5;
@@ -31,7 +32,7 @@
 
         .search-box {
             width: 100%;
-            padding: 18px 20px 18px 50px; /* Space for icon */
+            padding: 18px 20px 18px 50px; /* Padding left for icon */
             font-size: 1rem;
             border: 1px solid #e2e8f0;
             border-radius: 50px;
@@ -55,7 +56,7 @@
             top: 100%;
             left: 50%;
             transform: translateX(-50%) translateY(10px);
-            width: 250px; /* Slimmer for list */
+            width: 250px;
             background: white;
             padding: 15px 0;
             border-radius: 8px;
@@ -64,7 +65,7 @@
             visibility: hidden;
             transition: 0.2s ease;
             z-index: 1000;
-            border-top: 3px solid #d97706; /* Gold Top Border */
+            border-top: 3px solid #d97706;
         }
 
         .nav-item.dropdown:hover .mega-menu {
@@ -86,10 +87,8 @@
         .menu-item:last-child { border-bottom: none; }
         .menu-item:hover { background-color: #f8fafc; color: #d97706; padding-left: 25px; }
 
-        /* --- 3. PREMIUM BADGE --- */
-        .product-card {
-            position: relative; /* CRITICAL: Keeps badge inside */
-        }
+        /* --- 3. BADGE STYLE --- */
+        .product-card { position: relative; }
 
         .best-seller-badge {
             position: absolute;
@@ -106,9 +105,9 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-
-        /* Ensure header stays on top */
-        .site-header { position: fixed; top: 0; width: 100%; z-index: 100; }
+        
+        /* Ensure header has background on this page */
+        .site-header { background-color: #0f1c2e; position: fixed; width: 100%; top: 0; z-index: 100;}
     </style>
 </head>
 <body class="locked-scroll product-mode">
@@ -125,7 +124,8 @@
                 </div>
                 
                 <a href="company.html" class="nav-item inactive-link">Company</a>
-                <a href="support.html" class="nav-item inactive-link">Support</a> </nav>
+                <a href="contact.html" class="nav-item inactive-link">Support</a>
+            </nav>
             <a href="contact.html" class="cta-button">Get Quote</a>
         </div>
     </header>
@@ -191,14 +191,23 @@
                     return;
                 }
 
-                let index = 1;
+                // Convert to array to Sort
+                let products = [];
+                snap.forEach(doc => products.push(doc.data()));
 
-                snap.forEach(doc => {
-                    const p = doc.data();
+                // Sort: Best Seller First
+                products.sort((a, b) => {
+                    if (a.bestSeller && !b.bestSeller) return -1;
+                    if (!a.bestSeller && b.bestSeller) return 1;
+                    return 0;
+                });
+
+                let index = 1;
+                products.forEach(p => {
                     const machineId = `machine${index}`;
                     const imgUrl = p.imageUrl || 'assets/machine-1.png';
 
-                    // A. MAIN PAGE CARD
+                    // A. PRODUCT CARD
                     const badgeHTML = p.bestSeller ? `<div class="best-seller-badge">★ Best Seller</div>` : '';
                     
                     const html = `
@@ -220,7 +229,7 @@
                     `;
                     container.innerHTML += html;
 
-                    // B. MEGA MENU (List Item)
+                    // B. MEGA MENU (Text List)
                     if (index <= 8) {
                         megaMenu.innerHTML += `<a href="#${machineId}" class="menu-item">${p.name}</a>`;
                     }
