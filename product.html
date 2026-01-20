@@ -13,8 +13,8 @@
         /* --- 1. SEARCH BAR --- */
         .search-container {
             max-width: 600px;
-            /* Added margin-top to prevent Header Overlap since Ribbon is gone */
-            margin: 120px auto 30px auto; 
+            /* Margin to clear the floating header */
+            margin: 140px auto 30px auto; 
             position: relative;
             padding: 0 20px;
             z-index: 5;
@@ -32,7 +32,7 @@
 
         .search-box {
             width: 100%;
-            padding: 18px 20px 18px 50px; /* Padding left for icon */
+            padding: 18px 20px 18px 50px;
             font-size: 1rem;
             border: 1px solid #e2e8f0;
             border-radius: 50px;
@@ -48,7 +48,7 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
-        /* --- 2. TEXT-ONLY MEGA MENU --- */
+        /* --- 2. MEGA MENU STYLES (Added here to ensure it works even if not in style.css yet) --- */
         .nav-item.dropdown { position: relative; }
         
         .mega-menu {
@@ -105,14 +105,11 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-        
-        /* Ensure header has background on this page */
-        .site-header { background-color: #0f1c2e; position: fixed; width: 100%; top: 0; z-index: 100;}
     </style>
 </head>
 <body class="locked-scroll product-mode">
 
-    <header class="site-header">
+    <header class="site-header floating-header">
         <div class="header-content">
             <a href="index.html" class="logo"><img src="assets/logo.png" alt="MIM Logo"></a>
             <nav class="nav-links">
@@ -123,8 +120,8 @@
                      </div>
                 </div>
                 
-                <a href="company.html" class="nav-item inactive-link">Company</a>
-                <a href="contact.html" class="nav-item inactive-link">Support</a>
+                <a href="company.html" class="nav-item">Company</a>
+                <a href="contact.html" class="nav-item">Support</a>
             </nav>
             <a href="contact.html" class="cta-button">Get Quote</a>
         </div>
@@ -191,11 +188,10 @@
                     return;
                 }
 
-                // Convert to array to Sort
+                // Sort: Best Seller First
                 let products = [];
                 snap.forEach(doc => products.push(doc.data()));
 
-                // Sort: Best Seller First
                 products.sort((a, b) => {
                     if (a.bestSeller && !b.bestSeller) return -1;
                     if (!a.bestSeller && b.bestSeller) return 1;
@@ -207,7 +203,7 @@
                     const machineId = `machine${index}`;
                     const imgUrl = p.imageUrl || 'assets/machine-1.png';
 
-                    // A. PRODUCT CARD
+                    // MAIN CARD
                     const badgeHTML = p.bestSeller ? `<div class="best-seller-badge">★ Best Seller</div>` : '';
                     
                     const html = `
@@ -229,7 +225,7 @@
                     `;
                     container.innerHTML += html;
 
-                    // B. MEGA MENU (Text List)
+                    // MEGA MENU (Text List)
                     if (index <= 8) {
                         megaMenu.innerHTML += `<a href="#${machineId}" class="menu-item">${p.name}</a>`;
                     }
