@@ -730,3 +730,53 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
     .hamburger.active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
 }
+
+/* =========================================
+   LOGO SWAP LOGIC (Desktop Image vs Mobile Text)
+   ========================================= */
+
+/* DEFAULT (DESKTOP): Show Image, Hide Text */
+.desktop-only-logo {
+    display: block;
+    height: 50px; /* Adjust to match your original size */
+    width: auto;
+}
+
+.mobile-only-logo {
+    display: none !important; /* Strictly hidden on Desktop */
+}
+
+/* MOBILE OVERRIDE: Swap them! */
+@media (max-width: 1024px) {
+
+    /* Hide the Image */
+    .desktop-only-logo {
+        display: none !important;
+    }
+
+    /* Show the Stacked Text */
+    .mobile-only-logo {
+        display: flex !important;
+        flex-direction: column; /* Stack top/bottom */
+        align-items: center;    /* Center "MACHINES" */
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Style the Text to look professional */
+    .line-top {
+        color: #ffffff;
+        font-size: 0.9rem; /* Fit on small screen */
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        white-space: nowrap; /* Keep "Marine Industrial" together */
+    }
+
+    .line-bottom {
+        color: #ffffff;
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        margin-top: 2px; /* Small gap */
+    }
+}
