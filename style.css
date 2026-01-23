@@ -637,78 +637,84 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   PHASE 3 FINAL: MOBILE & TABLET FIXES
+   PHASE 3 FINAL POLISH: MOBILE & TABLET
    ========================================= */
 @media (max-width: 1024px) {
 
-    /* 1. THE "GAP" FIX (Nuclear Reset) */
+    /* 1. NUCLEAR RESET (Keeps layout clean) */
     html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        overflow-x: hidden !important; /* Stops side-scrolling */
-    }
-
-    /* Fix the Main Container to touch the edges */
-    .header-content, .hero-section, footer {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding-left: 20px; /* Keep internal breathing room */
-        padding-right: 20px;
-        box-sizing: border-box;
-    }
-
-    /* 2. FORCE HAMBURGER VISIBILITY */
-    .hamburger {
-        display: flex !important; /* Forces it to exist */
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;  /* Give it explicit size */
-        height: 21px; /* Give it explicit height */
-        cursor: pointer;
-        z-index: 9999; /* Higher than everything */
-        position: relative; /* Ensure it respects layout */
-    }
-
-    /* 3. COLOR & SIZE OF BARS */
-    .bar {
-        display: block;
         width: 100%;
-        height: 3px;
-        background-color: #f2f1ec !important; /* The color you asked for */
-        border-radius: 3px;
+        overflow-x: hidden !important; /* Prevents side-scrolling */
+        position: relative;
     }
 
-    /* 4. MOBILE MENU STYLING */
+    /* 2. THE MOBILE MENU CONTAINER */
     .nav-links {
         position: fixed;
         top: 0;
-        left: -100%; /* Hidden by default */
+        left: 0; /* Start at the edge */
         width: 100%;
         height: 100vh;
-        background-color: #1e293b; /* Dark Blue Background */
+        background-color: #365b6d; /* NEW COLOR: Steel Blue */
+        
+        /* THE "NO PEEKING" FIX: Use transform instead of left */
+        transform: translateX(-100%); 
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: 0.3s ease-in-out;
-        z-index: 5000; /* High, but below Hamburger */
-        padding-top: 60px;
+        z-index: 5000;
     }
 
     .nav-links.active {
-        left: 0; /* Slide in */
+        transform: translateX(0); /* Slide perfectly into view */
     }
 
+    /* 3. MENU TEXT (Professional Size) */
     .nav-item {
-        color: #f2f1ec;
-        font-size: 1.5rem;
-        margin: 25px 0;
+        color: #ffffff;
+        font-size: 1.1rem; /* Much smaller, professional size */
+        font-weight: 500;  /* Slightly thinner */
+        margin: 15px 0;    /* Closer together */
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
         display: block;
     }
-    
-    /* 5. TEXT SIZING FIXES */
-    h1 { font-size: 2.2rem !important; }
-    p { font-size: 1rem !important; }
+
+    /* 4. HAMBURGER ICON STYLING */
+    .hamburger {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 6000; /* Must be higher than nav-links */
+        margin-right: 10px; /* Breathing room from edge */
+    }
+
+    .bar {
+        width: 100%;
+        height: 2px; /* Thinner lines for cleaner look */
+        background-color: #f2f1ec !important;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    /* Hamburger Animation (Turns to X) */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    /* 5. GENERAL LAYOUT FIXES */
+    .header-content {
+        padding: 0 20px; /* Ensure padding matches other sections */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-content h1 { font-size: 2rem !important; }
+    .hero-content p { font-size: 0.95rem !important; }
 }
