@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 /* --- 1. DESIGN VARIABLES --- */
 :root {
     --bg-color: #f2f1ec;
@@ -750,5 +751,29 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
     /* Optional: Only if the text is touching the line above it */
     .hero-content h1 {
         line-height: 1.2; /* Ensures clean spacing between the two lines */
+    }
+}
+
+
+/* =========================================
+   HERO FONT UPDATE (Michroma)
+   ========================================= */
+.hero-content h1 {
+    font-family: 'Michroma', sans-serif !important;
+    font-weight: 400; 
+}
+
+/* Ensure the Mobile Line Break still works */
+.hero-break {
+    display: inline;
+}
+
+@media (max-width: 1024px) {
+    .hero-break {
+        display: block;
+        margin-top: 10px;
+    }
+    .hero-content h1 {
+        line-height: 1.3;
     }
 }
