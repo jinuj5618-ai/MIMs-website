@@ -608,3 +608,104 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 
+/* =========================================
+   LAPTOP OPTIMIZATION (1024px - 1440px)
+   ========================================= */
+@media (max-width: 1440px) {
+    /* 1. Shrink the Container Width */
+    .header-content {
+        width: 95% !important; /* Use more screen space */
+        max-width: 100% !important;
+        padding: 0 15px;
+    }
+
+    /* 2. Reduce Gap between Links */
+    .nav-links {
+        gap: 20px; /* Was probably 40px or 30px */
+    }
+
+    .nav-item {
+        font-size: 0.95rem; /* Slightly smaller text */
+        margin: 0 10px;
+    }
+
+    /* 3. Shrink the Logo slightly */
+    .logo img {
+        height: 35px; /* Adjust if your logo is huge */
+        width: auto;
+    }
+}
+
+/* =========================================
+   TABLET & MOBILE (Max-Width: 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    
+    /* 1. Show Hamburger Icon */
+    .hamburger {
+        display: block !important;
+        cursor: pointer;
+        z-index: 2000;
+    }
+    
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: #1e293b;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+
+    /* 2. Hide Links by Default (Slide-out Menu) */
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        flex-direction: column;
+        background-color: white;
+        width: 100%; /* Full width */
+        height: 100vh;
+        text-align: center;
+        padding-top: 120px;
+        transition: 0.3s;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        z-index: 1500;
+        gap: 40px; /* Space out links vertically */
+    }
+
+    .nav-links.active {
+        left: 0; /* Slide in */
+    }
+
+    .nav-item {
+        font-size: 1.5rem; /* Big text for fingers */
+        display: block;
+    }
+
+    /* 3. Hamburger Animation (Turns to X) */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    
+    /* 4. Fix Mega Menu for Mobile (No Hover, just List) */
+    .mega-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-top: none;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        display: none; /* Hidden until clicked */
+        background: #f8fafc;
+    }
+    
+    /* Optional: Show mega menu always on mobile or add a toggle script. 
+       For simplicity, we often hide the complex dropdown on mobile 
+       and just link to "Products" page. */
+    .nav-item.dropdown:hover .mega-menu {
+        display: block; /* Simple display block on hover/tap */
+    }
+}
