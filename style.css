@@ -732,40 +732,23 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   FINAL FIXES: HERO TEXT & BANNER
+   PURE LINE BREAK (No Font Changes)
    ========================================= */
 
-/* 1. HERO TEXT SPLIT (MARINE INDUSTRIAL ... MACHINES) */
+/* Default State (Desktop) */
 .hero-break {
-    display: inline; /* On Desktop, keep it on the same line */
+    display: inline; /* Keeps it on the same line */
 }
 
+/* Mobile State (Phone/Tablet) */
 @media (max-width: 1024px) {
     .hero-break {
-        display: block; /* On Mobile/Tablet, FORCE a new line */
-        margin-top: 10px; /* Add space between lines */
+        display: block; /* Forces it to the next line */
+        /* We are NOT setting font-size here, so it keeps your original H1 size */
     }
     
-    /* Optional: Make the hero text slightly smaller on phone so it fits nicely */
+    /* Optional: Only if the text is touching the line above it */
     .hero-content h1 {
-        line-height: 1.2; 
-        font-size: 2.5rem; /* Adjust if it's still too huge */
+        line-height: 1.2; /* Ensures clean spacing between the two lines */
     }
-}
-
-/* 2. BANNER SAFETY (Ensure it NEVER shows on Desktop) */
-@media (min-width: 1025px) {
-    #mobile-warning {
-        display: none !important; /* Strictly Hide on Desktop */
-    }
-}
-
-/* Ensure Logo in header stays strictly an image */
-.logo {
-    display: flex;
-    align-items: center;
-}
-.logo img {
-    height: 50px;
-    width: auto;
 }
