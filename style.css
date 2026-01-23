@@ -637,73 +637,33 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   FINAL "NO PEEKING" MOBILE FIX
+   FINAL "COMPACT MENU" FIX
    ========================================= */
-
-/* 1. HIDE HAMBURGER ON DESKTOP (Crucial Safety Net) */
-@media (min-width: 1025px) {
-    .hamburger {
-        display: none !important; /* Never show on desktop */
-    }
-}
-
-/* 2. MOBILE & TABLET STYLES */
 @media (max-width: 1024px) {
 
-    /* RESET TO PREVENT GAPS */
-    html, body {
-        overflow-x: hidden !important;
+    /* 1. LAYOUT RESET */
+    body, html {
+        overflow-x: hidden;
         width: 100%;
         position: relative;
     }
 
-    /* THE MOBILE MENU CONTAINER */
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: -100vw; /* Pushes it 100% of the VIEWPORT width away */
-        width: 100vw; /* Exactly full width */
-        height: 100vh;
-        background-color: #365b6d; /* Steel Blue */
-        
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Center vertically */
-        align-items: center;     /* Center horizontally */
-        
-        transition: left 0.3s ease-in-out; /* Simple, reliable slide */
-        z-index: 5000;
-        gap: 15px; /* TIGHTER SPACING: Only 15px between items */
-        
-        margin: 0 !important;
-        padding: 0 !important;
+    .header-content {
+        padding: 0 20px; /* Adds breathing room for the button */
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    .nav-links.active {
-        left: 0; /* Slide in */
-    }
-
-    /* MENU TEXT STYLING */
-    .nav-item {
-        color: #ffffff !important;
-        font-size: 1.1rem; /* Professional size */
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin: 5px 0; /* Very small margin, relies on 'gap' above */
-        padding: 10px 20px; /* Clickable area */
-    }
-
-    /* HAMBURGER ICON POSITIONING */
+    /* 2. THE HAMBURGER ICON */
     .hamburger {
         display: flex !important;
         flex-direction: column;
         justify-content: space-between;
-        width: 28px;
-        height: 20px;
+        width: 26px;  /* Slightly smaller for elegance */
+        height: 18px;
         cursor: pointer;
-        z-index: 6000; /* Above the menu */
-        margin-left: auto; /* Pushes it to the right if in a flex container */
+        z-index: 6000;
+        margin-left: auto; /* Pushes button to the Right */
     }
 
     .bar {
@@ -714,8 +674,45 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
         transition: all 0.3s ease;
     }
 
-    /* ANIMATION */
+    /* 3. THE MENU CONTAINER (Clean & Hidden) */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #365b6d; /* Steel Blue */
+        
+        /* THE MAGIC FIX: Move it off-screen using GPU */
+        transform: translateX(-100%); 
+        transition: transform 0.3s ease-in-out;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 25px; /* Perfect spacing for "3 lines" look */
+        z-index: 5000;
+    }
+
+    /* 4. OPEN STATE */
+    .nav-links.active {
+        transform: translateX(0); /* Slides in perfectly */
+    }
+
+    /* 5. LINK TEXT STYLING */
+    .nav-item {
+        color: #ffffff !important;
+        font-size: 1.2rem; /* Easy to read, not huge */
+        font-weight: 500;
+        text-transform: uppercase; /* Professional look */
+        letter-spacing: 1px;
+        padding: 10px;
+        margin: 0; /* Remove extra margins, let gap handle it */
+    }
+
+    /* HAMBURGER ANIMATION */
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
-    .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
