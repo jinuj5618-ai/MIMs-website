@@ -637,33 +637,40 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   FINAL "COMPACT MENU" FIX
+   FINAL STRATEGY: FADE-IN OVERLAY MENU
    ========================================= */
+
+/* 1. HIDE HAMBURGER ON DESKTOP */
+@media (min-width: 1025px) {
+    .hamburger { display: none !important; }
+}
+
+/* 2. MOBILE & TABLET STYLES */
 @media (max-width: 1024px) {
 
-    /* 1. LAYOUT RESET */
-    body, html {
-        overflow-x: hidden;
+    /* --- RESET TO FIX WHITE BARS --- */
+    html, body {
+        overflow-x: hidden !important;
         width: 100%;
+        margin: 0;
+        padding: 0;
         position: relative;
     }
 
-    .header-content {
-        padding: 0 20px; /* Adds breathing room for the button */
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* 2. THE HAMBURGER ICON */
+    /* --- THE HAMBURGER (Fixed Position) --- */
     .hamburger {
         display: flex !important;
         flex-direction: column;
         justify-content: space-between;
-        width: 26px;  /* Slightly smaller for elegance */
+        width: 26px;
         height: 18px;
         cursor: pointer;
-        z-index: 6000;
-        margin-left: auto; /* Pushes button to the Right */
+        
+        /* PIN IT TO THE RIGHT (Ignore other elements) */
+        position: absolute; 
+        right: 20px;  /* 20px from right edge */
+        top: 35px;    /* Adjust this to match your logo height */
+        z-index: 9999; 
     }
 
     .bar {
@@ -674,8 +681,9 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
         transition: all 0.3s ease;
     }
 
-    /* 3. THE MENU CONTAINER (Clean & Hidden) */
+    /* --- THE MENU (Overlay Style) --- */
     .nav-links {
+        /* FIXED FULL SCREEN OVERLAY */
         position: fixed;
         top: 0;
         left: 0;
@@ -683,36 +691,60 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
         height: 100vh;
         background-color: #365b6d; /* Steel Blue */
         
-        /* THE MAGIC FIX: Move it off-screen using GPU */
-        transform: translateX(-100%); 
-        transition: transform 0.3s ease-in-out;
+        /* HIDE IT COMPLETELY BY DEFAULT */
+        display: none; 
         
-        display: flex;
+        /* CENTERING MAGIC */
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 25px; /* Perfect spacing for "3 lines" look */
         z-index: 5000;
+        
+        /* REMOVE MARGINS */
+        margin: 0;
+        padding: 0;
     }
 
-    /* 4. OPEN STATE */
+    /* WHEN ACTIVE, SHOW IT */
     .nav-links.active {
-        transform: translateX(0); /* Slides in perfectly */
+        display: flex !important; /* This triggers the menu */
+        animation: fadeIn 0.3s ease-in-out;
     }
 
-    /* 5. LINK TEXT STYLING */
+    /* --- THE LINKS (Tight List) --- */
     .nav-item {
         color: #ffffff !important;
-        font-size: 1.2rem; /* Easy to read, not huge */
+        font-size: 1.3rem; /* Clean size */
         font-weight: 500;
-        text-transform: uppercase; /* Professional look */
+        text-transform: uppercase;
         letter-spacing: 1px;
-        padding: 10px;
-        margin: 0; /* Remove extra margins, let gap handle it */
+        
+        /* TIGHT SPACING */
+        margin: 15px 0; /* Just a little space between lines */
+        padding: 0;
+        display: block;
+        text-align: center;
     }
 
-    /* HAMBURGER ANIMATION */
+    /* ANIMATION KEYFRAMES */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* HAMBURGER ANIMATION (Turns to X) */
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* --- FIX HEADER ALIGNMENT --- */
+    .header-content {
+        padding: 0 20px;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Logo Left, Button Right */
+        position: relative; /* Needed for hamburger absolute positioning */
+    }
 }
