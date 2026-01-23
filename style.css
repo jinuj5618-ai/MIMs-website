@@ -637,7 +637,7 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   MASTER MOBILE FIX (Logo, Menu, Products, Layout)
+   THE "CLEAN SLATE" MOBILE FIX
    ========================================= */
 
 /* 1. HIDE HAMBURGER ON DESKTOP */
@@ -645,75 +645,88 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
     .hamburger { display: none !important; }
 }
 
-/* 2. MOBILE STYLES */
+/* 2. MOBILE ONLY STYLES */
 @media (max-width: 1024px) {
 
-    /* --- GLOBAL LAYOUT RESET --- */
+    /* --- RESET & BASICS --- */
     html, body {
         overflow-x: hidden !important;
         width: 100%;
         margin: 0;
         padding: 0;
-        /* Add padding to top so content isn't hidden behind fixed header */
-        padding-top: 80px; 
+        background-color: #f8fafc; /* Light background to make white cards pop */
     }
 
-    /* --- HEADER & LOGO FIX --- */
+    /* --- THE HEADER (Grid for Perfect Centering) --- */
     .header-content {
-        display: flex !important;
-        justify-content: space-between; /* Logo Left, Button Right */
-        align-items: center; /* VERTICALLY CENTER EVERYTHING */
+        display: grid !important;
+        grid-template-columns: 40px 1fr 40px; /* Left(Menu) - Center(Logo) - Right(Empty) */
+        align-items: center;
         width: 100%;
-        height: 70px; /* Fixed height for stability */
-        padding: 0 15px; /* Small padding on sides */
+        height: 70px;
+        padding: 0 15px;
         box-sizing: border-box;
+        background: #365b6d; /* Ensure header color is solid */
     }
 
-    .logo img {
-        height: auto;
-        max-width: 180px; /* Force Logo to shrink so it doesn't cut off */
-        object-fit: contain;
-    }
-
-    /* --- HAMBURGER BUTTON FIX --- */
+    /* Hamburger (Left Column) */
     .hamburger {
         display: flex !important;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         width: 28px;
         height: 20px;
         cursor: pointer;
         z-index: 9999;
-        margin-left: 15px; /* Space from logo */
-        /* It is now centered because parent has align-items: center */
+        grid-column: 1; /* Force to Left */
     }
-
+    
     .bar {
         width: 100%;
         height: 2px;
-        background-color: #ffffff !important; /* White color */
+        background-color: #ffffff !important;
+        margin: 3px 0;
         border-radius: 2px;
     }
 
-    /* --- MENU OVERLAY (Hidden by default) --- */
+    /* Logo (Center Column) */
+    .logo {
+        grid-column: 2; /* Force to Center */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo img {
+        height: auto;
+        width: 100%; /* Make it fill the center space */
+        max-width: 250px; /* Allow it to get wide enough to read text */
+        max-height: 50px;
+        object-fit: contain; /* Don't stretch */
+    }
+
+    /* Hide the desktop "Get Quote" button in header to save space */
+    .header-content .cta-button {
+        display: none !important; 
+    }
+
+    /* --- THE MENU OVERLAY --- */
     .nav-links {
-        display: none; /* Hidden */
+        display: none;
         position: fixed;
-        top: 0;
+        top: 70px; /* Start below header */
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: calc(100vh - 70px);
         background-color: #365b6d;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        padding-top: 40px;
         z-index: 5000;
-        padding-top: 0;
     }
-
-    .nav-links.active {
-        display: flex !important; /* Visible */
-    }
+    
+    .nav-links.active { display: flex !important; }
 
     .nav-item {
         color: white !important;
@@ -723,63 +736,53 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
         display: block;
     }
 
-    /* --- PRODUCT PAGE FIX (Crucial) --- */
-    .product-grid {
-        display: flex;
-        flex-direction: column; /* Stack cards vertically */
-        gap: 30px;
-        padding: 20px;
-    }
-
-    .product-section, .product-card {
-        width: 100% !important; /* Force full width */
-        height: auto !important; /* Allow height to grow with content */
-        display: flex;
-        flex-direction: column; /* Stack image on top of text */
-        background: #fff;
-        padding: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Slight shadow to see it against bg */
+    /* --- THE "UNIVERSAL CARD" LOOK (The Magic Part) --- */
+    /* Applies 'Featured Innovation' style to Products, Company Infra, and Support Form */
+    
+    .product-section,          /* For Product Page */
+    .product-card,             /* For Product List */
+    .infrastructure-section,   /* For Company Page */
+    .support-form-container,   /* For Support Page */
+    .contact-form              /* For Contact Page */
+    {
+        background: #ffffff !important;
+        border-radius: 15px !important;       /* Nice rounded corners */
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08) !important; /* Soft Shadow */
+        margin: 20px auto !important;         /* Spacing between cards */
+        padding: 25px !important;             /* Inner breathing room */
+        width: 90% !important;                /* Fit screen with margins */
+        max-width: 400px !important;
         box-sizing: border-box;
-    }
-
-    .product-image img {
-        width: 100% !important;
-        height: auto !important;
-        max-height: 250px;
-        object-fit: cover;
-        margin-bottom: 20px;
-    }
-
-    .product-info {
-        width: 100% !important;
-        padding: 0 !important;
-        text-align: center; /* Center text for mobile */
-    }
-
-    /* Make buttons full width on mobile for easy tapping */
-    .cta-button, .brochure-btn {
-        width: 100%;
-        display: block;
-        margin: 10px 0;
+        
+        /* Center Content */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
     }
 
-    /* --- COMPANY & SUPPORT PAGE FIX (De-Congest) --- */
-    .container, .content-section {
+    /* Fix Images inside Cards */
+    .product-image img, 
+    .infra-image img {
         width: 100% !important;
-        padding: 30px 20px !important; /* ADD BREATHING ROOM */
-        box-sizing: border-box;
-    }
-
-    p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important; /* More space between lines of text */
+        border-radius: 10px;
         margin-bottom: 15px;
     }
 
-    h1, h2 {
-        font-size: 1.8rem !important; /* Smaller headings */
-        margin-bottom: 20px;
-        word-wrap: break-word; /* Prevent long words breaking layout */
+    /* Fix Text inside Cards */
+    .product-info h3, 
+    .infra-content h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: #1e293b;
+    }
+
+    /* Fix Buttons to be Full Width */
+    .cta-button, .brochure-btn, .submit-btn {
+        width: 100% !important;
+        padding: 12px 0;
+        margin-top: 10px;
+        border-radius: 8px;
+        text-align: center;
     }
 }
