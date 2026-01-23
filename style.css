@@ -637,145 +637,49 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   NUCLEAR MOBILE FIX (Forces Card Layout)
+   MOBILE DISCLAIMER BANNER
    ========================================= */
+#mobile-warning {
+    display: none; /* Hidden on Desktop */
+}
 
-@media (max-width: 1024px) {
-
-    /* 1. RESET EVERYTHING (Fixes "White Bar" & Scroll Issues) */
-    html, body {
-        overflow-x: hidden !important; /* No side scrolling */
-        width: 100vw !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background-color: #f4f4f4 !important; /* Light Grey Background */
-    }
-
-    /* 2. HEADER FIX (Grid Layout for Perfect Center) */
-    .header-content {
-        display: grid !important;
-        grid-template-columns: 50px 1fr 50px !important; /* Menu - Logo - Empty */
-        align-items: center !important;
-        height: 70px !important;
-        background-color: #365b6d !important;
+/* Only show this banner if the screen is small */
+@media screen and (max-width: 900px) {
+    #mobile-warning {
+        display: block;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 9999;
-        padding: 0 10px !important;
+        background-color: #fceea3; /* Soft Warning Yellow */
+        color: #5c4b1e;
+        text-align: center;
+        padding: 15px 10px;
+        font-size: 24px; /* Big text since we removed the viewport tag */
+        z-index: 10000;
+        border-bottom: 2px solid #e6db9c;
+        box-sizing: border-box;
+        font-family: sans-serif;
     }
 
-    /* Hamburger (Left) */
-    .hamburger {
-        grid-column: 1;
-        display: flex !important;
-        flex-direction: column;
-        justify-content: center;
-        width: 30px;
-        height: 20px;
+    #mobile-warning strong {
+        color: #333;
+    }
+
+    /* The Close Button */
+    #mobile-warning button {
+        background: transparent;
+        border: none;
+        font-size: 30px;
+        color: #333;
+        position: absolute;
+        right: 20px;
+        top: 10px;
         cursor: pointer;
     }
     
-    .bar {
-        background-color: white !important;
-        height: 3px;
-        margin: 3px 0;
-        width: 100%;
-    }
-
-    /* Logo (Center) - FORCED TO FIT */
-    .logo {
-        grid-column: 2;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-    }
-
-    .logo img {
-        max-height: 40px !important; /* Restrict height */
-        max-width: 100% !important;  /* Ensure it doesn't overflow width */
-        width: auto !important;
-        object-fit: contain !important;
-    }
-
-    /* Hide Desktop Elements */
-    .header-content .cta-button, 
-    .header-content .nav-links { 
-        display: none !important; 
-    }
-
-    /* 3. MOBILE MENU OVERLAY (The "Three Lines" Look) */
-    .nav-links.active {
-        display: flex !important;
-        flex-direction: column !important;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: #365b6d;
-        padding: 20px 0;
-        align-items: center;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
-    
-    .nav-item {
-        color: white !important;
-        font-size: 1.2rem;
-        margin: 10px 0;
-        display: block;
-    }
-
-    /* 4. THE "CARD" LAYOUT (Applies to ALL content) */
-    /* This pushes content down and wraps it in white boxes */
-    
-    .hero-section, 
-    .product-section, 
-    .infrastructure-section, 
-    .support-section,
-    footer {
-        width: 95% !important;
-        margin: 20px auto !important; /* Center the card */
-        background: white !important;
-        padding: 20px !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Fix Content Inside Cards */
-    h1, h2, h3 {
-        font-size: 1.5rem !important; /* Smaller headings */
-        text-align: center !important;
-        word-wrap: break-word !important; /* Prevent text cut-off */
-    }
-
-    p {
-        font-size: 0.95rem !important;
-        text-align: center !important;
-        line-height: 1.5 !important;
-    }
-
-    img {
-        max-width: 100% !important;
-        height: auto !important;
-        border-radius: 10px;
-        display: block;
-        margin: 0 auto 15px auto; /* Center images */
-    }
-
-    /* Buttons */
-    .cta-button, button, .brochure-btn {
-        width: 100% !important;
-        display: block !important;
-        margin-top: 10px;
-        padding: 12px 0 !important;
-        text-align: center !important;
-    }
-    
-    /* Specific Fix for Hero Section Spacing */
-    .hero-section {
-        margin-top: 90px !important; /* Clears the fixed header */
+    /* Push the main site down slightly so banner doesn't cover logo */
+    body {
+        margin-top: 80px; 
     }
 }
