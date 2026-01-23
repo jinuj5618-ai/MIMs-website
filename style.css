@@ -637,53 +637,64 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   PHASE 3 FINAL POLISH: MOBILE & TABLET
+   FINAL "NO PEEKING" MOBILE FIX
    ========================================= */
+
+/* 1. HIDE HAMBURGER ON DESKTOP (Crucial Safety Net) */
+@media (min-width: 1025px) {
+    .hamburger {
+        display: none !important; /* Never show on desktop */
+    }
+}
+
+/* 2. MOBILE & TABLET STYLES */
 @media (max-width: 1024px) {
 
-    /* 1. NUCLEAR RESET (Keeps layout clean) */
+    /* RESET TO PREVENT GAPS */
     html, body {
+        overflow-x: hidden !important;
         width: 100%;
-        overflow-x: hidden !important; /* Prevents side-scrolling */
         position: relative;
     }
 
-    /* 2. THE MOBILE MENU CONTAINER */
+    /* THE MOBILE MENU CONTAINER */
     .nav-links {
         position: fixed;
         top: 0;
-        left: 0; /* Start at the edge */
-        width: 100%;
+        left: -100vw; /* Pushes it 100% of the VIEWPORT width away */
+        width: 100vw; /* Exactly full width */
         height: 100vh;
-        background-color: #365b6d; /* NEW COLOR: Steel Blue */
-        
-        /* THE "NO PEEKING" FIX: Use transform instead of left */
-        transform: translateX(-100%); 
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: #365b6d; /* Steel Blue */
         
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        justify-content: center; /* Center vertically */
+        align-items: center;     /* Center horizontally */
+        
+        transition: left 0.3s ease-in-out; /* Simple, reliable slide */
         z-index: 5000;
+        gap: 15px; /* TIGHTER SPACING: Only 15px between items */
+        
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .nav-links.active {
-        transform: translateX(0); /* Slide perfectly into view */
+        left: 0; /* Slide in */
     }
 
-    /* 3. MENU TEXT (Professional Size) */
+    /* MENU TEXT STYLING */
     .nav-item {
-        color: #ffffff;
-        font-size: 1.1rem; /* Much smaller, professional size */
-        font-weight: 500;  /* Slightly thinner */
-        margin: 15px 0;    /* Closer together */
-        letter-spacing: 0.5px;
+        color: #ffffff !important;
+        font-size: 1.1rem; /* Professional size */
+        font-weight: 500;
         text-transform: uppercase;
-        display: block;
+        letter-spacing: 1px;
+        margin: 5px 0; /* Very small margin, relies on 'gap' above */
+        padding: 10px 20px; /* Clickable area */
     }
 
-    /* 4. HAMBURGER ICON STYLING */
+    /* HAMBURGER ICON POSITIONING */
     .hamburger {
         display: flex !important;
         flex-direction: column;
@@ -691,30 +702,20 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
         width: 28px;
         height: 20px;
         cursor: pointer;
-        z-index: 6000; /* Must be higher than nav-links */
-        margin-right: 10px; /* Breathing room from edge */
+        z-index: 6000; /* Above the menu */
+        margin-left: auto; /* Pushes it to the right if in a flex container */
     }
 
     .bar {
         width: 100%;
-        height: 2px; /* Thinner lines for cleaner look */
+        height: 2px;
         background-color: #f2f1ec !important;
         border-radius: 2px;
         transition: all 0.3s ease;
     }
 
-    /* Hamburger Animation (Turns to X) */
+    /* ANIMATION */
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-    /* 5. GENERAL LAYOUT FIXES */
-    .header-content {
-        padding: 0 20px; /* Ensure padding matches other sections */
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .hero-content h1 { font-size: 2rem !important; }
-    .hero-content p { font-size: 0.95rem !important; }
 }
