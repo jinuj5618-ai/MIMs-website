@@ -637,138 +637,145 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   EMERGENCY MOBILE FIX (Universal Cards)
+   NUCLEAR MOBILE FIX (Forces Card Layout)
    ========================================= */
 
-/* 1. HIDE HAMBURGER ON DESKTOP */
-@media (min-width: 1025px) {
-    .hamburger { display: none !important; }
-}
-
-/* 2. MOBILE FORCE FIELD */
 @media (max-width: 1024px) {
 
-    /* --- RESET & SPACE --- */
-    body {
-        padding-top: 100px !important; /* Pushes ALL content down so it's not hidden behind header */
+    /* 1. RESET EVERYTHING (Fixes "White Bar" & Scroll Issues) */
+    html, body {
+        overflow-x: hidden !important; /* No side scrolling */
+        width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
         background-color: #f4f4f4 !important; /* Light Grey Background */
     }
 
-    /* --- HEADER (Center Logo, Right Button) --- */
+    /* 2. HEADER FIX (Grid Layout for Perfect Center) */
     .header-content {
-        display: flex !important;
+        display: grid !important;
+        grid-template-columns: 50px 1fr 50px !important; /* Menu - Logo - Empty */
         align-items: center !important;
-        justify-content: space-between !important; /* Spreads items apart */
-        height: 80px !important;
-        padding: 0 15px !important;
+        height: 70px !important;
         background-color: #365b6d !important;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 9000;
+        z-index: 9999;
+        padding: 0 10px !important;
     }
 
-    /* FIX LOGO TEXT (Shrink to fit) */
-    .logo {
-        flex-grow: 1; /* Takes up all available space */
-        text-align: center; /* Centers the image */
-        margin-left: 40px; /* Offset the hamburger width to center perfectly */
-    }
-
-    .logo img {
-        height: 50px !important; /* Fixed height */
-        width: auto !important;
-        max-width: 200px !important; /* Force it to fit */
-        object-fit: contain !important;
-    }
-
-    /* FIX HAMBURGER (Visible & White) */
+    /* Hamburger (Left) */
     .hamburger {
+        grid-column: 1;
         display: flex !important;
         flex-direction: column;
         justify-content: center;
         width: 30px;
-        height: 25px;
+        height: 20px;
         cursor: pointer;
-        z-index: 9999;
-    }
-
-    .bar {
-        height: 3px !important;
-        background-color: #ffffff !important; /* Pure White */
-        margin: 3px 0;
-        border-radius: 4px;
     }
     
-    /* HIDE THE DESKTOP 'GET QUOTE' BUTTON */
-    .header-content .cta-button {
-        display: none !important;
+    .bar {
+        background-color: white !important;
+        height: 3px;
+        margin: 3px 0;
+        width: 100%;
     }
 
-    /* --- THE MENU (Simple List) --- */
-    .nav-links {
-        display: none; /* Hidden by default */
+    /* Logo (Center) - FORCED TO FIT */
+    .logo {
+        grid-column: 2;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .logo img {
+        max-height: 40px !important; /* Restrict height */
+        max-width: 100% !important;  /* Ensure it doesn't overflow width */
+        width: auto !important;
+        object-fit: contain !important;
+    }
+
+    /* Hide Desktop Elements */
+    .header-content .cta-button, 
+    .header-content .nav-links { 
+        display: none !important; 
+    }
+
+    /* 3. MOBILE MENU OVERLAY (The "Three Lines" Look) */
+    .nav-links.active {
+        display: flex !important;
+        flex-direction: column !important;
         position: fixed;
-        top: 80px;
+        top: 70px;
         left: 0;
         width: 100%;
-        height: 50vh; /* Half screen height is enough */
         background-color: #365b6d;
-        flex-direction: column;
+        padding: 20px 0;
         align-items: center;
-        padding-top: 20px;
-        box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     }
-
-    .nav-links.active { display: flex !important; }
     
     .nav-item {
         color: white !important;
         font-size: 1.2rem;
-        margin: 15px 0;
-        text-transform: uppercase;
+        margin: 10px 0;
+        display: block;
     }
 
-    /* --- THE "UNIVERSAL CARD" STYLE --- */
-    /* This forces Product, Company, and Support sections to look like the Home Page Card */
+    /* 4. THE "CARD" LAYOUT (Applies to ALL content) */
+    /* This pushes content down and wraps it in white boxes */
     
+    .hero-section, 
     .product-section, 
     .infrastructure-section, 
     .support-section,
-    form {
+    footer {
+        width: 95% !important;
+        margin: 20px auto !important; /* Center the card */
         background: white !important;
-        border-radius: 20px !important;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-        width: 90% !important; /* Fit screen */
-        margin: 20px auto !important; /* Center it */
-        padding: 25px !important;
-        box-sizing: border-box;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+        padding: 20px !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+        box-sizing: border-box !important;
     }
 
-    /* FIX IMAGES INSIDE CARDS */
-    .product-section img, .infrastructure-section img {
-        width: 100% !important;
-        height: auto !important;
-        border-radius: 10px !important;
-        margin-bottom: 20px !important;
-    }
-
-    /* FIX TEXT INSIDE CARDS */
-    .product-section h2, .product-section p,
-    .infrastructure-section h2, .infrastructure-section p {
+    /* Fix Content Inside Cards */
+    h1, h2, h3 {
+        font-size: 1.5rem !important; /* Smaller headings */
         text-align: center !important;
-        width: 100% !important;
+        word-wrap: break-word !important; /* Prevent text cut-off */
     }
-    
-    /* MAKE BUTTONS VISIBLE & FULL WIDTH */
-    .cta-button, button {
+
+    p {
+        font-size: 0.95rem !important;
+        text-align: center !important;
+        line-height: 1.5 !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 10px;
+        display: block;
+        margin: 0 auto 15px auto; /* Center images */
+    }
+
+    /* Buttons */
+    .cta-button, button, .brochure-btn {
         width: 100% !important;
         display: block !important;
-        margin-top: 15px !important;
-        padding: 15px 0 !important;
+        margin-top: 10px;
+        padding: 12px 0 !important;
+        text-align: center !important;
+    }
+    
+    /* Specific Fix for Hero Section Spacing */
+    .hero-section {
+        margin-top: 90px !important; /* Clears the fixed header */
     }
 }
