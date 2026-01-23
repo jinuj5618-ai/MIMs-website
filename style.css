@@ -637,7 +637,7 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
 }
 
 /* =========================================
-   FINAL SAFE MODE: MOBILE MENU
+   MASTER MOBILE FIX (Logo, Menu, Products, Layout)
    ========================================= */
 
 /* 1. HIDE HAMBURGER ON DESKTOP */
@@ -645,86 +645,141 @@ body.locked-scroll { height: 100vh; display: flex; flex-direction: column; overf
     .hamburger { display: none !important; }
 }
 
-/* 2. MOBILE & TABLET STYLES */
+/* 2. MOBILE STYLES */
 @media (max-width: 1024px) {
 
-    /* --- LAYOUT RESET --- */
+    /* --- GLOBAL LAYOUT RESET --- */
     html, body {
         overflow-x: hidden !important;
         width: 100%;
-        position: relative;
+        margin: 0;
+        padding: 0;
+        /* Add padding to top so content isn't hidden behind fixed header */
+        padding-top: 80px; 
     }
 
-    /* --- HEADER CONTAINER (Flexbox) --- */
+    /* --- HEADER & LOGO FIX --- */
     .header-content {
         display: flex !important;
         justify-content: space-between; /* Logo Left, Button Right */
-        align-items: center;
+        align-items: center; /* VERTICALLY CENTER EVERYTHING */
         width: 100%;
-        padding: 0 20px;
+        height: 70px; /* Fixed height for stability */
+        padding: 0 15px; /* Small padding on sides */
         box-sizing: border-box;
-        height: 80px; /* Force a height so it doesn't collapse */
     }
 
-    /* --- THE HAMBURGER (Visible & White) --- */
+    .logo img {
+        height: auto;
+        max-width: 180px; /* Force Logo to shrink so it doesn't cut off */
+        object-fit: contain;
+    }
+
+    /* --- HAMBURGER BUTTON FIX --- */
     .hamburger {
         display: flex !important;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        height: 22px;
+        width: 28px;
+        height: 20px;
         cursor: pointer;
-        z-index: 9999; /* Always on top */
-        
-        /* NO ABSOLUTE POSITIONING (Safer) */
-        margin-left: auto; /* Pushes it to the far right */
+        z-index: 9999;
+        margin-left: 15px; /* Space from logo */
+        /* It is now centered because parent has align-items: center */
     }
 
     .bar {
         width: 100%;
-        height: 3px;
-        background-color: #ffffff !important; /* PURE WHITE for visibility */
-        border-radius: 3px;
-        transition: all 0.3s ease;
+        height: 2px;
+        background-color: #ffffff !important; /* White color */
+        border-radius: 2px;
     }
 
-    /* --- THE MENU (Full Screen Overlay) --- */
+    /* --- MENU OVERLAY (Hidden by default) --- */
     .nav-links {
+        display: none; /* Hidden */
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
-        background-color: #365b6d; /* Steel Blue Background */
-        
-        /* HIDE BY DEFAULT */
-        display: none; 
-        
-        /* CENTER EVERYTHING */
+        background-color: #365b6d;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 5000;
+        padding-top: 0;
     }
 
-    /* SHOW MENU WHEN ACTIVE */
     .nav-links.active {
-        display: flex !important;
+        display: flex !important; /* Visible */
     }
 
-    /* --- THE LINKS (Clean List) --- */
     .nav-item {
-        color: #ffffff !important;
-        font-size: 1.4rem;
-        font-weight: 500;
+        color: white !important;
+        font-size: 1.2rem;
+        margin: 15px 0;
         text-transform: uppercase;
-        margin: 20px 0; /* Space them out */
-        text-align: center;
         display: block;
     }
 
-    /* --- ANIMATION (Burger to X) --- */
-    .hamburger.active .bar:nth-child(2) { opacity: 0; }
-    .hamburger.active .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
-    .hamburger.active .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+    /* --- PRODUCT PAGE FIX (Crucial) --- */
+    .product-grid {
+        display: flex;
+        flex-direction: column; /* Stack cards vertically */
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .product-section, .product-card {
+        width: 100% !important; /* Force full width */
+        height: auto !important; /* Allow height to grow with content */
+        display: flex;
+        flex-direction: column; /* Stack image on top of text */
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Slight shadow to see it against bg */
+        box-sizing: border-box;
+    }
+
+    .product-image img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 250px;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+
+    .product-info {
+        width: 100% !important;
+        padding: 0 !important;
+        text-align: center; /* Center text for mobile */
+    }
+
+    /* Make buttons full width on mobile for easy tapping */
+    .cta-button, .brochure-btn {
+        width: 100%;
+        display: block;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    /* --- COMPANY & SUPPORT PAGE FIX (De-Congest) --- */
+    .container, .content-section {
+        width: 100% !important;
+        padding: 30px 20px !important; /* ADD BREATHING ROOM */
+        box-sizing: border-box;
+    }
+
+    p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important; /* More space between lines of text */
+        margin-bottom: 15px;
+    }
+
+    h1, h2 {
+        font-size: 1.8rem !important; /* Smaller headings */
+        margin-bottom: 20px;
+        word-wrap: break-word; /* Prevent long words breaking layout */
+    }
 }
